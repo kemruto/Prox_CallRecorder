@@ -39,6 +39,13 @@
         app:layout_constraintStart_toEndOf="@id/imv_avatar"
         app:layout_constraintTop_toBottomOf="@id/tv_name_contact"/>
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        android:src="@drawable/level_status_call"
+
+        app:layout_constraintTop_toTopOf="@id/tv_name_contact"
+        app:layout_constraintStart_toEndOf="@id/tv_name_contact"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

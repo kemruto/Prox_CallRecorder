@@ -1,4 +1,6 @@
 package com.sonnguyen.callrecorder.view.fragment.Home;
 
-public class HomeViewModel {
+import com.sonnguyen.callrecorder.base.BaseViewModel;
+
+public class HomeViewModel extends BaseViewModel {
 }

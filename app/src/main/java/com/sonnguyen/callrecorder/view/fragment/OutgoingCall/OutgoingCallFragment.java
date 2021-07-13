@@ -1,14 +1,14 @@
-package com.sonnguyen.callrecorder.view.fragment.Home;
+package com.sonnguyen.callrecorder.view.fragment.OutgoingCall;
 
 import android.view.View;
 
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 
-public class HomeFragment extends BaseFragment {
+public class OutgoingCallFragment extends BaseFragment {
     @Override
     protected Class getClassModel() {
-        return HomeViewModel.class;
+        return OutgoingCallViewModel.class;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.fragment_home;
+        return R.layout.fragment_outgoing_call;
     }
 
     @Override

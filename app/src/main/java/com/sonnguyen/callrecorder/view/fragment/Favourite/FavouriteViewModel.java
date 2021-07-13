@@ -1,4 +1,6 @@
 package com.sonnguyen.callrecorder.view.fragment.Favourite;
 
-public class FavouriteViewModel {
+import com.sonnguyen.callrecorder.base.BaseViewModel;
+
+public class FavouriteViewModel extends BaseViewModel {
 }

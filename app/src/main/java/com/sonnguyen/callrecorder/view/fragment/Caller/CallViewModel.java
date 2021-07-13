@@ -1,4 +1,6 @@
 package com.sonnguyen.callrecorder.view.fragment.Caller;
 
-public class CallViewModel {
+import com.sonnguyen.callrecorder.base.BaseViewModel;
+
+public class CallViewModel extends BaseViewModel {
 }

@@ -6,11 +6,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/list_item_home_view"
+        tools:itemCount="5"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_30sdp"
+        android:text="file name"
+        android:id="@+id/tv_filename"
+
+        app:layout_constraintTop_toBottomOf="@id/bt_record"
+        app:layout_constraintStart_toStartOf="@id/bt_stop"/>
+
+    <Button
+        android:id="@+id/bt_record"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_70sdp"
+
+        android:text="Record"
+        app:layout_constraintStart_toStartOf="@id/list_item"
+        app:layout_constraintTop_toBottomOf="@id/list_item" />
+    <Button
+        android:id="@+id/bt_stop"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_70sdp"
+
+        android:text="Stop"
+        app:layout_constraintStart_toEndOf="@id/bt_record"
+        app:layout_constraintTop_toBottomOf="@id/list_item" />
+    <Button
+        android:id="@+id/bt_play"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_70sdp"
+
+        android:text="Play"
+        app:layout_constraintStart_toEndOf="@id/bt_stop"
+        app:layout_constraintTop_toBottomOf="@id/list_item" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

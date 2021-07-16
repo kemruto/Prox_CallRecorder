@@ -1,5 +1,7 @@
 package com.sonnguyen.callrecorder.base;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +21,8 @@ public abstract class BaseFragment<T extends BaseViewModel> extends Fragment imp
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(getLayoutResId(),container,false);
         mViewModel = new ViewModelProvider(this).get(getClassModel());
+        initViews();
+        initEvents();
         return mView;
     }
 

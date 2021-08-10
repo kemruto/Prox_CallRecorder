@@ -19,9 +19,11 @@ public abstract class BaseAct<T extends ViewModel> extends AppCompatActivity imp
         setContentView(getLayoutResId());
         mModel = new ViewModelProvider(this).get(getClassViewModel());
         initViews();
+        initEvents();
     }
 
     protected abstract void initViews();
+    protected abstract void initEvents();
 
     protected abstract int getLayoutResId();
 

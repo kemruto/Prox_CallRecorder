@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/constraint_layout">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/lv_status_call"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/ic_incoming_call"
+
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.12" />
+
+    <TextView
+        android:id="@+id/tv_name_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="Private Number"
+        android:textColor="@color/black"
+
+        android:textSize="@dimen/_15sdp"
+
+        app:layout_constraintStart_toEndOf="@id/lv_status_call"
+        app:layout_constraintTop_toTopOf="@id/lv_status_call" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="đ/mm/yyyy 00:00 am"
+
+        android:textSize="@dimen/_12sdp"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_name_contact"
+        app:layout_constraintStart_toStartOf="@id/tv_name_contact"/>
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/lv_status_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_gray_star"
+
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+
+        app:layout_constraintStart_toEndOf="@id/tv_time"
+        app:layout_constraintTop_toTopOf="@id/lv_status_call"
+        app:layout_constraintEnd_toStartOf="@id/imv_play"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imv_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_play"
+
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+
+        app:layout_constraintStart_toEndOf="@id/lv_status_star"
+        app:layout_constraintTop_toTopOf="@id/lv_status_call"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintWidth_percent="0.9"
+        android:layout_marginTop="15dp"
+        android:background="@color/gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_time"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

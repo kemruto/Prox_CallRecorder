@@ -1,25 +1,20 @@
 package com.sonnguyen.callrecorder.adapter;
 
-import android.content.Context;
-import android.view.View;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.sonnguyen.callrecorder.view.fragment.Caller.CallFragment;
-import com.sonnguyen.callrecorder.view.fragment.Favourite.FavouriteFragment;
-import com.sonnguyen.callrecorder.view.fragment.Home.HomeFragment;
-import com.sonnguyen.callrecorder.view.fragment.IncomingCall.IncomingCallFragment;
-import com.sonnguyen.callrecorder.view.fragment.OutgoingCall.OutgoingCallFragment;
-import com.sonnguyen.callrecorder.view.fragment.Trimmed.TrimmedFragment;
+import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.ui.fragment.Caller.CallFragment;
+import com.sonnguyen.callrecorder.ui.fragment.Favourite.FavouriteFragment;
+import com.sonnguyen.callrecorder.ui.fragment.Home.HomeFragment;
+import com.sonnguyen.callrecorder.ui.fragment.IncomingCall.IncomingCallFragment;
+import com.sonnguyen.callrecorder.ui.fragment.OutgoingCall.OutgoingCallFragment;
+import com.sonnguyen.callrecorder.ui.fragment.Trimmed.TrimmedFragment;
 
-public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter implements OnActionCallbackFragment {
     private String listTab[] = {"All","Caller ID","Favourite","Incoming Call","Outgoing Call","Trimmed"};
     private HomeFragment homeFragment;
     private CallFragment callFragment;
@@ -27,6 +22,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private IncomingCallFragment incoming;
     private OutgoingCallFragment outgoing;
     private TrimmedFragment trimmed;
+    private OnActionCallbackFragment callbackFragment;
 
     public ViewPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
@@ -66,5 +62,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return listTab[position];
+    }
+
+    @Override
+    public void onCallback(String key, Object object) {
+
     }
 }

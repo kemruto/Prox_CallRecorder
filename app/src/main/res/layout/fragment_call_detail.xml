@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/core_purple">
+    <ImageView
+        android:id="@+id/imv_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imv_bin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bin"
+
+        android:layout_marginEnd="@dimen/_10sdp"
+
+        app:layout_constraintTop_toTopOf="@id/imv_back"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <ImageView
+        android:id="@+id/imv_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_white_share_app"
+
+        android:layout_marginEnd="@dimen/_15sdp"
+
+        app:layout_constraintTop_toTopOf="@id/imv_back"
+        app:layout_constraintEnd_toStartOf="@id/imv_bin"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/bg_round_7_white"
+        android:paddingBottom="@dimen/_12sdp"
+
+        android:translationZ="@dimen/_10sdp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imv_back"
+        app:layout_constraintWidth_percent="0.7">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/lv_status_call"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:src="@drawable/level_status_call"
+
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.12" />
+
+        <TextView
+            android:id="@+id/tv_name_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Private Number"
+            android:textColor="@color/black"
+
+            android:textSize="@dimen/_15sdp"
+
+            app:layout_constraintStart_toEndOf="@id/lv_status_call"
+            app:layout_constraintTop_toTopOf="@id/lv_status_call" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="dd/mm/yyyy"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toEndOf="@id/lv_status_call"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_contact" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+
+            android:text="00:00 am"
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toEndOf="@id/tv_date"
+            app:layout_constraintTop_toTopOf="@id/tv_date" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_round_top_corner_16_white"
+
+        android:layout_marginTop="@dimen/_80sdp"
+
+        app:layout_constraintTop_toTopOf="@id/container1"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/imv_play_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/level_list_play_audio"
+
+            android:layout_marginBottom="@dimen/_10sdp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <SeekBar
+            android:id="@+id/seekbar"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            app:layout_constraintWidth_percent="0.9"
+
+            android:max="100"
+            android:progressBackgroundTint="@color/gray"
+            android:progressTint="@color/core_purple"
+            android:thumbTint="@color/core_purple"
+            android:progress="40"
+
+            android:layout_marginBottom="@dimen/_10sdp"
+
+            app:layout_constraintBottom_toTopOf="@id/imv_play_detail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/lato_regular"
+            android:text="00:06"
+            android:textColor="@color/gray"
+            android:textSize="14dp"
+
+            android:layout_marginStart="10dp"
+
+            app:layout_constraintTop_toTopOf="@id/imv_play_detail"
+            app:layout_constraintStart_toStartOf="@id/seekbar"/>
+
+        <TextView
+            android:id="@+id/tv_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/lato_regular"
+            android:text="04:06"
+            android:textColor="@color/gray"
+            android:textSize="14dp"
+
+            android:layout_marginStart="10dp"
+
+            app:layout_constraintTop_toTopOf="@id/imv_play_detail"
+            app:layout_constraintEnd_toEndOf="@id/seekbar"/>
+
+        <ImageView
+            android:id="@+id/imv_add_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_add_note"
+
+            android:layout_marginTop="@dimen/_40sdp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imv_trimmed"/>
+
+        <ImageView
+            android:id="@+id/imv_trimmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_trimmed"
+
+            android:layout_marginTop="@dimen/_40sdp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imv_add_note"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

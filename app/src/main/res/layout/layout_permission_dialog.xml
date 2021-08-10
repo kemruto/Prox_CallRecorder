@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_16sdp"
+    android:background="@drawable/bg_round_16_white">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/bg_round_top_corner_7_purple"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+
+        android:text="Give permission for using app"
+
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_dialog_permission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bg_round_bottom_corner_7_white"
+        app:layout_constraintTop_toBottomOf="@id/tv_title">
+
+        <TextView
+            android:id="@+id/tv_title_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Storage"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Allow this app to save your call recordings \n inside your storage"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_storage" />
+
+        <TextView
+            android:id="@+id/tv_title_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Record Audio"
+            android:textColor="@color/core_purple"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_storage" />
+
+        <TextView
+            android:id="@+id/tv_content_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Required to record your call"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_record"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_record" />
+
+        <TextView
+            android:id="@+id/tv_title_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Contacts"
+            android:textColor="@color/core_purple"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_record" />
+
+        <TextView
+            android:id="@+id/tv_content_contacts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Allow this app to fetch contact names \n from your phonebook"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_record"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_contacts" />
+
+        <TextView
+            android:id="@+id/tv_title_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Overlay"
+            android:textColor="@color/core_purple"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_contacts" />
+
+        <TextView
+            android:id="@+id/tv_content_overlay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Required to show caller info after each call"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_record"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_overlay" />
+
+        <TextView
+            android:id="@+id/tv_title_accessibilty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Accessibility Permission"
+            android:textColor="@color/core_purple"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_overlay" />
+
+        <TextView
+            android:id="@+id/tv_content_accessibility"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Please allow this permission for seamless \n call recording and high quality audio"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="@id/tv_title_record"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_accessibilty" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/storage_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintStart_toEndOf="@id/tv_content_storage"
+            app:layout_constraintTop_toTopOf="@id/tv_title_storage"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/record_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:switchMinWidth="100dp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintStart_toStartOf="@id/storage_switch"
+            app:layout_constraintTop_toTopOf="@id/tv_title_record"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/contact_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:switchMinWidth="100dp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintStart_toStartOf="@id/storage_switch"
+            app:layout_constraintTop_toTopOf="@id/tv_title_contacts"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/overlay_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:switchMinWidth="100dp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintStart_toStartOf="@id/storage_switch"
+            app:layout_constraintTop_toTopOf="@id/tv_title_overlay"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/accessibility_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:switchMinWidth="100dp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintStart_toStartOf="@id/storage_switch"
+            app:layout_constraintTop_toTopOf="@id/tv_title_accessibilty"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_skip"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_42sdp"
+
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@drawable/bg_round_gray"
+            android:text="Skip"
+
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/bt_grant"
+
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_accessibility" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bt_grant"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_42sdp"
+
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@drawable/bg_round_7_purple"
+            android:text="Grant"
+
+            android:textColor="@color/white"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/bt_skip"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_accessibility" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

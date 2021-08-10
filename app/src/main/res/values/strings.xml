@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CallRecorder</string>
+    <string name="call_null">Does not have any record call</string>
+    <string name="content_storage_permisson">Allow this app to save your call recordings inside your storage</string>
 </resources>

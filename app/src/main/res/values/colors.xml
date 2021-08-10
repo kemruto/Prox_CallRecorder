@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FC5F53</color>
+
+    <color name="green">#64C882</color>
+    <color name="gray">#B8B8B8</color>
+    <color name="core_purple">#5C66D4</color>
+    <color name="blue_outgoing">#63DAFF</color>
+    <color name="yellow_incoming">#F1CE51</color>
+    <color name="blue_add_note">#63D9FF</color>
+    <color name="red_trimmed">#FF7373</color>
 </resources>

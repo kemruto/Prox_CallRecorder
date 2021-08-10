@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/_12sdp">
+    <TextView
+        android:id="@+id/tv_caller_phonenumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone number"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_12sdp"
+        android:fontFamily="@font/lato_regular"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/tv_caller_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dd/mm/yyyy"
+        android:fontFamily="@font/lato_regular"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_caller_phonenumber"
+        app:layout_constraintStart_toStartOf="@id/tv_caller_phonenumber"/>
+
+    <TextView
+        android:id="@+id/tv_caller_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00 am"
+        android:fontFamily="@font/lato_regular"
+
+        android:layout_marginStart="@dimen/_15sdp"
+
+        app:layout_constraintTop_toTopOf="@id/tv_caller_date"
+        app:layout_constraintStart_toEndOf="@id/tv_caller_phonenumber"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bt_caller_track"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:text="Track"
+        android:textSize="@dimen/_10sdp"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_round_20_purple"
+        android:fontFamily="@font/lato_regular"
+
+
+        app:layout_constraintTop_toTopOf="@id/tv_caller_phonenumber"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

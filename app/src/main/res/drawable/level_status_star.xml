@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/ic_black_star" android:minLevel="0"/>
-    <item android:drawable="@drawable/ic_yellow_star" android:minLevel="1"/>
+    <item android:drawable="@drawable/ic_gray_star" android:minLevel="0"/>
+    <item android:drawable="@drawable/ic_purple_star" android:minLevel="1"/>
 </level-list>

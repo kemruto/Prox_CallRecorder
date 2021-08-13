@@ -1,6 +1,5 @@
 package com.sonnguyen.callrecorder;
 
-import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -12,7 +11,6 @@ import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
@@ -23,21 +21,20 @@ import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 import com.sonnguyen.callrecorder.ui.activity.MainActivity;
-import com.sonnguyen.callrecorder.ui.fragment.Home.HomeViewModel;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.sonnguyen.callrecorder.App.CHANNEL_ID;
+import static com.sonnguyen.callrecorder.utils.app.App.CHANNEL_ID;
 
 public class AutoRecordService extends Service implements OnActionCallback {
     private MediaRecorder mediaRecorder;
      private boolean isRecording;
     private RecordDAO recordDAO;
     private int status = 0;
-    private String phoneNumber;
+    private static String phoneNumber;
     private OnActionCallback onActionCallback;
 
     @Nullable
@@ -56,10 +53,10 @@ public class AutoRecordService extends Service implements OnActionCallback {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        phoneNumber = intent.getStringExtra("phoneNumber");
         if (intent.getAction()==("OFFHOOK")){
             createNotificationChannel();
             buildStartNotification();
-            phoneNumber = intent.getStringExtra("phoneNumber");
             startRecording();
         }else if(intent.getAction()==("IDLE")){
             stopRecording();
@@ -68,7 +65,7 @@ public class AutoRecordService extends Service implements OnActionCallback {
             status = 1;
             Log.i("aaa","incoming call");
         }
-        return START_NOT_STICKY;
+        return START_STICKY;
     }
 
     private void startRecording() {
@@ -113,9 +110,7 @@ public class AutoRecordService extends Service implements OnActionCallback {
     private void saveRecord() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime dateTime = LocalDateTime.now();
-        RecordModel recordModel = new RecordModel(phoneNumber,status,dtf.format(dateTime),0,0);
-        Log.i("aaa","status: "+recordModel.getStatus());
-        Log.i("aaa","trim: "+recordModel.getTrimmed());
+        RecordModel recordModel = new RecordModel(""+phoneNumber,status,dtf.format(dateTime),0,0);
         recordDAO.insertRecord(recordModel);
     }
 

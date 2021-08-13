@@ -1,13 +1,17 @@
 package com.sonnguyen.callrecorder.ui.fragment.Detail;
 
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.sonnguyen.callrecorder.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 
-public class DetailFragment extends BaseFragment implements OnActionCallbackFragment {
+public class DetailFragment extends BaseFragment<DetailViewModel>{
     private OnActionCallbackFragment callbackFragment;
+    private ImageView imvBack,imvShare,imvBin,imvAddNote,imvTrim,imvPlay;
 
     @Override
     protected Class getClassModel() {
@@ -16,12 +20,22 @@ public class DetailFragment extends BaseFragment implements OnActionCallbackFrag
 
     @Override
     protected void initEvents() {
-
+        imvBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().popBackStack();
+            }
+        });
     }
 
     @Override
     protected void initViews() {
-
+        imvBack = findViewById(R.id.imv_back_detail);
+        imvShare = findViewById(R.id.imv_share);
+        imvBin = findViewById(R.id.imv_bin);
+        imvAddNote = findViewById(R.id.imv_add_note);
+        imvTrim = findViewById(R.id.imv_trimmed);
+        imvPlay = findViewById(R.id.imv_play_detail);
     }
 
     @Override
@@ -38,9 +52,5 @@ public class DetailFragment extends BaseFragment implements OnActionCallbackFrag
         this.callbackFragment = callbackFragment;
     }
 
-    @Override
-    public void onCallback(String key, Object object) {
-
-    }
 }
 

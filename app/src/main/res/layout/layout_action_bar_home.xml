@@ -22,9 +22,10 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:ems="10"
+            android:hint="Search here..."
             android:background="@null"
             android:fontFamily="@font/lato_regular"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_12sdp"
             android:textColorHint="@color/white"
             android:padding="@dimen/_5sdp"
             android:singleLine="true"/>

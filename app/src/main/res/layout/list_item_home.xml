@@ -29,8 +29,8 @@
         android:maxLines="1"
         android:text="Private Number"
         android:textColor="@color/black"
-
-        android:textSize="@dimen/_15sdp"
+        android:fontFamily="@font/lato_bold"
+        android:textSize="@dimen/_14sdp"
 
         app:layout_constraintStart_toEndOf="@id/lv_status_call"
         app:layout_constraintTop_toTopOf="@id/lv_status_call" />
@@ -39,7 +39,7 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="đ/mm/yyyy 00:00 am"
+        android:text="dd/mm/yyyy 00:00 am"
 
         android:textSize="@dimen/_12sdp"
 

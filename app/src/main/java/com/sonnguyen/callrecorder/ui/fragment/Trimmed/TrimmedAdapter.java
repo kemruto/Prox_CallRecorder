@@ -47,11 +47,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
 
         holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
         holder.tvTime.setText(recordModel.getTime());
-        if(recordModel.getStatus()==0){
-            holder.imvStatusCall.setBackgroundResource(R.drawable.ic_outgoing_call);
-        }else{
-            holder.imvStatusCall.setBackgroundResource(R.drawable.ic_incoming_call);
-        }
+        holder.imvStatusCall.setBackgroundResource(R.drawable.ic_trimmed);
 
         if (recordModel.getFavourite()==1){
             holder.imvFavourite.setBackgroundResource(R.drawable.ic_purple_star);

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.view.Window;
@@ -22,6 +23,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -30,9 +32,11 @@ import com.sonnguyen.callrecorder.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.adapter.ViewPagerAdapter;
 import com.sonnguyen.callrecorder.base.BaseAct;
+import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 import com.sonnguyen.callrecorder.ui.fragment.Caller.CallFragment;
 import com.sonnguyen.callrecorder.ui.fragment.Detail.DetailFragment;
 import com.sonnguyen.callrecorder.ui.fragment.Favourite.FavouriteFragment;
+import com.sonnguyen.callrecorder.ui.fragment.Home.HomeAdapter;
 import com.sonnguyen.callrecorder.ui.fragment.Home.HomeFragment;
 import com.sonnguyen.callrecorder.ui.fragment.IncomingCall.IncomingCallFragment;
 import com.sonnguyen.callrecorder.ui.fragment.OutgoingCall.OutgoingCallFragment;
@@ -47,6 +51,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private static final String KEY_RECORD = "KEY_RECORD";
     private static final String KEY_CONTACT = "KEY_CONTACT";
     private static final String KEY_OVERLAY = "KEY_OVERLAY";
+
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE
             , Manifest.permission.READ_EXTERNAL_STORAGE
             , Manifest.permission.RECORD_AUDIO
@@ -59,6 +64,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private DrawerLayout drawerLayout;
     private View imvMenu;
 
+    private HomeAdapter homeAdapter;
     private HomeFragment homeFragment;
     private DetailFragment detailFragment;
     private CallFragment callFragment;
@@ -67,11 +73,9 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private OutgoingCallFragment outgoingCallFragment;
     private TrimmedFragment trimmedFragment;
 
-    private OnActionCallbackFragment callbackFragment;
-
     @Override
     protected void initViews() {
-        sharedPreferences = getApplicationContext().getSharedPreferences(KEY_SHARE_PREFERENCES,Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences(KEY_SHARE_PREFERENCES, Context.MODE_PRIVATE);
         checkPermission();
         if (!checkPermission()) {
             showPermissionDialog();
@@ -118,10 +122,10 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
         Button btSkip = dialog.findViewById(R.id.bt_skip);
         Button btGrant = dialog.findViewById(R.id.bt_grant);
 
-        if (checkPermission()){
+        if (checkPermission()) {
             btSkip.setEnabled(true);
             btSkip.setBackgroundResource(R.drawable.bg_round_7_purple);
-        }else{
+        } else {
             btSkip.setEnabled(false);
         }
 
@@ -135,8 +139,8 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
         btGrant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestPermissions(permissions,REQ);
-                if (checkPermission()){
+                requestPermissions(permissions, REQ);
+                if (checkPermission()) {
                     switchStorage.setChecked(true);
                     switchRecord.setChecked(true);
                     switchOverlay.setChecked(true);
@@ -146,24 +150,24 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
             }
         });
 
-        boolean checkStorage = sharedPreferences.getBoolean(KEY_STORAGE,false);
-        boolean checkRecord = sharedPreferences.getBoolean(KEY_RECORD,false);
-        boolean checkContact = sharedPreferences.getBoolean(KEY_CONTACT,false);
-        boolean checkOverlay = sharedPreferences.getBoolean(KEY_OVERLAY,false);
+        boolean checkStorage = sharedPreferences.getBoolean(KEY_STORAGE, false);
+        boolean checkRecord = sharedPreferences.getBoolean(KEY_RECORD, false);
+        boolean checkContact = sharedPreferences.getBoolean(KEY_CONTACT, false);
+        boolean checkOverlay = sharedPreferences.getBoolean(KEY_OVERLAY, false);
 //        boolean checkAccessibility = sharedPreferences.getBoolean(KEY_STORAGE,false);
-        if (checkStorage){
+        if (checkStorage) {
             switchStorage.setChecked(checkStorage);
             switchStorage.setEnabled(false);
         }
-        if (checkRecord){
+        if (checkRecord) {
             switchRecord.setChecked(checkRecord);
             switchRecord.setEnabled(false);
         }
-        if (checkContact){
+        if (checkContact) {
             switchContact.setChecked(checkContact);
             switchContact.setEnabled(false);
         }
-        if (checkOverlay){
+        if (checkOverlay) {
             switchOverlay.setChecked(checkOverlay);
             switchOverlay.setEnabled(false);
         }
@@ -179,7 +183,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                         switchStorage.setChecked(false);
                     } else if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                             == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_GRANTED){
+                            == PackageManager.PERMISSION_GRANTED) {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(KEY_STORAGE, true);
                         editor.commit();
@@ -196,7 +200,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                     == PackageManager.PERMISSION_DENIED) {
                 switchRecord.setChecked(false);
             } else if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.RECORD_AUDIO)
-                    == PackageManager.PERMISSION_GRANTED){
+                    == PackageManager.PERMISSION_GRANTED) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(KEY_RECORD, true);
                 editor.commit();
@@ -210,7 +214,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                     == PackageManager.PERMISSION_DENIED) {
                 switchContact.setChecked(false);
             } else if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.READ_CONTACTS)
-                    == PackageManager.PERMISSION_GRANTED){
+                    == PackageManager.PERMISSION_GRANTED) {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putBoolean(KEY_CONTACT, true);
                 editor.commit();
@@ -224,7 +228,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 if (!Settings.canDrawOverlays(MainActivity.this)) {
                     Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
                     startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE);
-                } else if (Settings.canDrawOverlays(MainActivity.this)){
+                } else if (Settings.canDrawOverlays(MainActivity.this)) {
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putBoolean(KEY_OVERLAY, true);
                     editor.commit();
@@ -280,20 +284,13 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     @Override
     public void onCallback(String key, Object object) {
         switch (key) {
-            case HomeFragment.KEY_HOME_FRAGMENT_TO_DETAIL:
-                showDetailFragment();
+            case HomeFragment.KEY_HOME_TO_MAIN_TO_DETAIL:
+                detailFragment = new DetailFragment();
+                detailFragment.setCallBack(this);
+                showFragment(R.id.frame_layout,detailFragment,true);
                 break;
         }
     }
 
-    private void showDetailFragment() {
-        detailFragment = new DetailFragment();
-        detailFragment.setCallBack(this);
-        showFragment(R.id.frame_layout, detailFragment, false);
-    }
-
-    public void setCallBack(OnActionCallbackFragment callbackFragment) {
-        this.callbackFragment = callbackFragment;
-    }
 
 }

@@ -1,4 +1,4 @@
-package com.sonnguyen.callrecorder;
+package com.sonnguyen.callrecorder.utils.app;
 
 import android.app.Application;
 import android.app.NotificationChannel;

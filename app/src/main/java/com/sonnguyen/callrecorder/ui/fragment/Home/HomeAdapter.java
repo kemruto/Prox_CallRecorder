@@ -21,11 +21,11 @@ import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
-    public static final String KEY_RECORD_TO_DETAIL = "KEY_RECỎD_TO_DETAIL";
+    public static final String KEY_RECORD_TO_DETAIL = "KEY_RECORD_TO_DETAIL";
     private List<RecordModel> mList;
     private Context mContext;
-    private OnActionCallbackFragment callback;
     private RecordDAO recordDAO;
+    private OnActionCallbackFragment callbackFragment;
 
     public HomeAdapter(List<RecordModel> mList, Context mContext) {
         this.mList = mList;
@@ -37,8 +37,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setCallback(OnActionCallbackFragment callback) {
-        this.callback = callback;
+    public void setCallback(OnActionCallbackFragment callbackFragment) {
+        this.callbackFragment = callbackFragment;
     }
 
     @NonNull
@@ -88,16 +88,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.imvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //open detail fragment
+                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,null);
             }
         });
 
-        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                callback.onCallback(KEY_RECORD_TO_DETAIL,recordModel);
-            }
-        });
+//        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,null);
+//            }
+//        });
     }
 
 

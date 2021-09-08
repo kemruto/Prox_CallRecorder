@@ -4,9 +4,11 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+
+import com.sonnguyen.callrecorder.datasource.model.CallerModel;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 
-@Database(entities = RecordModel.class,version = 1)
+@Database(entities = {RecordModel.class, CallerModel.class},version = 1)
 public abstract class RecordDatabase extends RoomDatabase {
     private static RecordDatabase instance;
 

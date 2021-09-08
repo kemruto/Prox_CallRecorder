@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
@@ -47,7 +46,7 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
 
         holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
-        holder.tvTime.setText(recordModel.getTime());
+        holder.tvDate.setText(recordModel.getDate());
         holder.imvStatusCall.setBackgroundResource(R.drawable.ic_incoming_call);
 
         if (recordModel.getFavourite()==1){
@@ -71,7 +70,7 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvPhoneNumber;
-        TextView tvTime;
+        TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
         ImageView imvPlay;
@@ -80,7 +79,7 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);
             imvPlay = itemView.findViewById(R.id.imv_play);

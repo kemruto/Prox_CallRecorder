@@ -15,19 +15,24 @@ public class RecordModel implements Serializable {
     @PrimaryKey (autoGenerate = true)
     private int id;
 
-    //096234
     private String phoneNumber;
     private int status;
+    private String date;
     private String time;
     private int favourite;
     private int trimmed;
+    private String path;
+    private String note;
 
-    public RecordModel(String phoneNumber, int status, String time, int favourite, int trimmed) {
+    public RecordModel(String phoneNumber, int status, String date,String time, int favourite, int trimmed,String path,String note) {
         this.phoneNumber = phoneNumber;
         this.status = status;
+        this.date = date;
         this.time = time;
         this.favourite = favourite;
         this.trimmed = trimmed;
+        this.path = path;
+        this.note = note;
     }
 
     public int getId() {
@@ -54,6 +59,14 @@ public class RecordModel implements Serializable {
         this.status = status;
     }
 
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public String getTime() {
         return time;
     }
@@ -76,5 +89,21 @@ public class RecordModel implements Serializable {
 
     public void setTrimmed(int trimmed) {
         this.trimmed = trimmed;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

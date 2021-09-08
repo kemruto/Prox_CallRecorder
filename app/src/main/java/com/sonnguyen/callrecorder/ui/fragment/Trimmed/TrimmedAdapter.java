@@ -46,7 +46,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
         RecordModel recordModel = mList.get(position);
 
         holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
-        holder.tvTime.setText(recordModel.getTime());
+        holder.tvDate.setText(recordModel.getDate());
         holder.imvStatusCall.setBackgroundResource(R.drawable.ic_trimmed);
 
         if (recordModel.getFavourite()==1){
@@ -70,7 +70,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvPhoneNumber;
-        TextView tvTime;
+        TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
         ImageView imvPlay;
@@ -79,7 +79,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);
             imvPlay = itemView.findViewById(R.id.imv_play);

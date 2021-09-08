@@ -1,13 +1,20 @@
 package com.sonnguyen.callrecorder.ui.fragment.Home;
 
+import android.content.Context;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sonnguyen.callrecorder.MessageEvent;
 import com.sonnguyen.callrecorder.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
@@ -17,19 +24,23 @@ import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 import com.sonnguyen.callrecorder.ui.activity.MainActivity;
 import com.sonnguyen.callrecorder.ui.fragment.Detail.DetailFragment;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActionCallbackFragment{
 
     public static final String KEY_HOME_TO_MAIN_TO_DETAIL = "KEY_HOME_TO_MAIN_TO_DETAIL";
+    public static final String KEY_DETAIL_TO_MAIN_TO_ADD_NOTE = "KEY_DETAIL_TO_MAIN_TO_ADD_NOTE";
+
     private HomeAdapter homeAdapter;
     private List<RecordModel> listRecord;
     private RecyclerView recyclerView;
-    private Button btShowDialog;
     private OnActionCallbackFragment callbackFragment;
     private RecordDAO recordDAO;
-    private MainActivity mainActivity;
 
     @Override
     protected Class getClassModel() {
@@ -38,12 +49,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
 
     @Override
     protected void initEvents() {
-        btShowDialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDetailFragment();
-            }
-        });
+
     }
 
     @Override
@@ -58,14 +64,13 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
         recordDAO = RecordDatabase.getInstance(getContext()).recordDAO();
         recyclerView = findViewById(R.id.list_item);
         listRecord = new ArrayList<>();
-        btShowDialog = findViewById(R.id.bt_dialog);
         showListRecord();
     }
 
     private void showListRecord() {
         listRecord = mViewModel.getListRecordModel();
         if (listRecord.size() == 0){
-            Toast.makeText(getContext(), "Null", Toast.LENGTH_SHORT).show();
+            //
         }else{
             homeAdapter = new HomeAdapter(listRecord,getContext());
             homeAdapter.setCallback(this);
@@ -89,19 +94,38 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
     public void onCallback(String key, Object object) {
         switch (key){
             case HomeAdapter.KEY_RECORD_TO_DETAIL:
-//                RecordModel recordModel = (RecordModel) object;
-                callbackFragment.onCallback(KEY_HOME_TO_MAIN_TO_DETAIL,null);
-//                showDetailFragment();
+                RecordModel recordModel = (RecordModel) object;
+                callbackFragment.onCallback(KEY_HOME_TO_MAIN_TO_DETAIL,recordModel);
+                break;
+            case DetailFragment.KEY_DETAIL_TO_ADD_NOTE:
+                callbackFragment.onCallback(KEY_DETAIL_TO_MAIN_TO_ADD_NOTE,null);
                 break;
         }
     }
 
-    private void showDetailFragment() {
-        DetailFragment detailFragment = new DetailFragment();
-        detailFragment.setCallBack(this);
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout,detailFragment);
-        transaction.addToBackStack("add");
-        transaction.commit();
+    public void setCallBack(OnActionCallbackFragment callbackFragment){
+        this.callbackFragment = callbackFragment;
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode =  ThreadMode.MAIN)
+    public void onEvent(MessageEvent messageEvent){
+        Log.i("aaa","Event fired");
+        listRecord = mViewModel.getListRecordModel();
+        homeAdapter.setNewData(listRecord);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(homeAdapter);
+    }
+
 }

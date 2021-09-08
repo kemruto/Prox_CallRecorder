@@ -26,13 +26,13 @@ public abstract class BaseFragment<T extends BaseViewModel> extends Fragment imp
         return mView;
     }
 
-    protected abstract Class<T> getClassModel();
+    protected abstract void initViews();
 
     protected abstract void initEvents();
 
-    protected abstract void initViews();
-
     protected abstract int getLayoutResId();
+
+    protected abstract Class<T> getClassModel();
 
     public final <T extends View> T findViewById(int id) { return findViewById(id,null);}
     public final <T extends View> T findViewById(int id,View.OnClickListener event){

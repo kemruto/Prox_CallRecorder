@@ -142,34 +142,6 @@
             app:layout_constraintStart_toStartOf="@id/tv_title_record"
             app:layout_constraintTop_toBottomOf="@id/tv_title_overlay" />
 
-        <TextView
-            android:id="@+id/tv_title_accessibilty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_13sdp"
-            android:fontFamily="@font/lato_bold"
-            android:text="Accessibility Permission"
-            android:textColor="@color/core_purple"
-
-            android:textSize="@dimen/_12sdp"
-
-            app:layout_constraintStart_toStartOf="@id/tv_title_storage"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_overlay" />
-
-        <TextView
-            android:id="@+id/tv_content_accessibility"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/lato_regular"
-            android:text="Please allow this permission for seamless \n call recording and high quality audio"
-
-            android:textColor="@color/black"
-
-            app:layout_constraintStart_toStartOf="@id/tv_title_record"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_accessibilty" />
-
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/storage_switch"
             android:layout_width="wrap_content"
@@ -221,20 +193,6 @@
             app:thumbTint="@color/white"
             app:track="@drawable/bg_track" />
 
-        <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/accessibility_switch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:switchMinWidth="100dp"
-            android:thumb="@drawable/bg_thumb"
-            app:layout_constraintStart_toStartOf="@id/storage_switch"
-            app:layout_constraintTop_toTopOf="@id/tv_title_accessibilty"
-
-            app:thumbTint="@color/white"
-            app:track="@drawable/bg_track" />
-
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_skip"
             android:layout_width="@dimen/_120sdp"
@@ -249,7 +207,7 @@
 
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_accessibility" />
+            app:layout_constraintTop_toBottomOf="@id/tv_content_overlay" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/bt_grant"
@@ -264,8 +222,7 @@
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/bt_skip"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_accessibility" />
+            app:layout_constraintTop_toBottomOf="@id/tv_content_overlay" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -79,7 +79,7 @@ public class OutgoingCallAdapter extends RecyclerView.Adapter<OutgoingCallAdapte
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvTime = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);
             imvPlay = itemView.findViewById(R.id.imv_play);

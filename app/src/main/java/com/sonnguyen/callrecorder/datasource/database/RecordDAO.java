@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.sonnguyen.callrecorder.datasource.model.CallerModel;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 
 import java.util.List;
@@ -33,10 +34,21 @@ public interface RecordDAO {
     @Query("Select *From "+"RECORD_MODEL"+" Where status = 0 ")
     public List<RecordModel> listOutgoingCall ();
 
-    @Query("Select *From "+"RECORD_MODEL"+" Where trimmed = 0  ")
+    @Query("Select *From "+"RECORD_MODEL"+" Where trimmed = 1  ")
     public List<RecordModel> listTrimmedRecord ();
 
     @Query("Select *From "+"RECORD_MODEL"+" Where favourite = 1 ")
     public List<RecordModel> listFavourite ();
+
+
+    /** Caller Model */
+    @Query("Select *From CALLER_MODEL")
+    public List<CallerModel> listCaller();
+
+    @Insert
+    public void insertCaller(CallerModel callerModel);
+
+    @Delete
+    public void deleteCaller(List<CallerModel> listCallerModel);
  
 }

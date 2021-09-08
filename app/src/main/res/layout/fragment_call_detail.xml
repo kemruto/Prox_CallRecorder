@@ -56,13 +56,13 @@
         app:layout_constraintTop_toBottomOf="@id/imv_back_detail"
         app:layout_constraintWidth_percent="0.7">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/lv_status_call"
+        <ImageView
+            android:id="@+id/imv_detail_status_call"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:src="@drawable/level_status_call"
+            android:background="@drawable/ic_incoming_call"
 
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
             app:layout_constraintWidth_percent="0.12" />
 
         <TextView
-            android:id="@+id/tv_name_contact"
+            android:id="@+id/tv_caller_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -83,35 +83,23 @@
 
             android:textSize="@dimen/_15sdp"
 
-            app:layout_constraintStart_toEndOf="@id/lv_status_call"
-            app:layout_constraintTop_toTopOf="@id/lv_status_call" />
+            app:layout_constraintStart_toEndOf="@id/imv_detail_status_call"
+            app:layout_constraintTop_toTopOf="@id/imv_detail_status_call" />
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/tv_track_caller_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:layout_marginStart="@dimen/_10sdp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="dd/mm/yyyy"
+            android:text="dd/mm/yyyy 00:00 am"
 
             android:textSize="@dimen/_12sdp"
 
-            app:layout_constraintStart_toEndOf="@id/lv_status_call"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_contact" />
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_15sdp"
-
-            android:text="00:00 am"
-            android:textSize="@dimen/_12sdp"
-
-            app:layout_constraintStart_toEndOf="@id/tv_date"
-            app:layout_constraintTop_toTopOf="@id/tv_date" />
+            app:layout_constraintStart_toEndOf="@id/imv_detail_status_call"
+            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -202,7 +190,7 @@
             android:id="@+id/imv_trimmed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_trimmed"
+            android:src="@drawable/ic_red_trimmed"
             android:translationZ="@dimen/_5sdp"
 
             android:layout_marginTop="@dimen/_40sdp"

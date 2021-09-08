@@ -53,7 +53,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         RecordModel recordModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
         holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
-        holder.tvTime.setText(recordModel.getTime());
+        holder.tvDate.setText(recordModel.getDate());
 
         if (recordModel.getStatus()==1){
             holder.imvStatusCall.setBackgroundResource(R.drawable.ic_incoming_call);
@@ -88,7 +88,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         holder.imvPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,null);
+                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,recordModel);
             }
         });
 
@@ -108,7 +108,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvPhoneNumber;
-        TextView tvTime;
+        TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
         ImageView imvPlay;
@@ -117,7 +117,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
-            tvTime = itemView.findViewById(R.id.tv_time);
+            tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);
             imvPlay = itemView.findViewById(R.id.imv_play);

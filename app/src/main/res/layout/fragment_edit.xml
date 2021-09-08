@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+/**
+ * Copyright (c) 2007, Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); 
+ * you may not use this file except in compliance with the License. 
+ * You may obtain a copy of the License at 
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0 
+ *
+ * Unless required by applicable law or agreed to in writing, software 
+ * distributed under the License is distributed on an "AS IS" BASIS, 
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+ * See the License for the specific language governing permissions and 
+ * limitations under the License.
+ */
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/core_purple"
+        android:padding="@dimen/_10sdp">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_back_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_done_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_check"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imv_back_edit"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@color/white">
+
+        <com.sonnguyen.callrecorder.utils.app.WaveformView
+            android:id="@+id/waveform"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingStart="@dimen/_16sdp"/>
+
+        <com.sonnguyen.callrecorder.utils.app.MarkerView
+            android:id="@+id/startmarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Start marker"
+            android:nextFocusDown="@+id/endmarker"
+            android:src="@drawable/marker_left" />
+
+        <com.sonnguyen.callrecorder.utils.app.MarkerView
+            android:id="@+id/endmarker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="End markder"
+            android:nextFocusUp="@+id/startmarker"
+            android:nextFocusDown="@+id/info"
+            android:src="@drawable/marker_right" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/info"
+        style="@style/AudioFileInfoOverlayText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:nextFocusUp="@+id/endmarker"
+        android:nextFocusDown="@+id/play" />
+
+    <LinearLayout
+        style="@style/ToolbarBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="62dip"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/rew"
+            style="@android:style/MediaButton"
+            android:layout_width="64dip"
+            android:layout_height="52dip"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="6dip"
+            android:visibility="gone"
+            android:contentDescription="rewind"
+            android:src="@android:drawable/ic_media_previous" />
+
+        <ImageButton
+            android:id="@+id/play"
+            style="@android:style/MediaButton"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="6dip"
+            android:layout_marginBottom="6dip"
+            android:contentDescription="Play"
+            android:src="@drawable/ic_play" />
+
+        <ImageButton
+            android:id="@+id/ffwd"
+            style="@android:style/MediaButton"
+            android:layout_width="64dip"
+            android:layout_height="52dip"
+            android:layout_marginTop="6dip"
+            android:visibility="gone"
+            android:layout_marginRight="5dip"
+            android:layout_marginBottom="6dip"
+            android:contentDescription="Fast forward"
+            android:src="@android:drawable/ic_media_next" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/HorizontalDividerTop" />
+
+    <LinearLayout style="@style/HorizontalDividerBottom" />
+
+    <LinearLayout
+        style="@style/ToolbarBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="62dip"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/mark_start"
+            android:layout_width="wrap_content"
+            android:layout_height="31dip"
+            android:clickable="true"
+            android:gravity="center"
+            android:labelFor="@+id/starttext"
+            android:text="Start"
+            android:textColor="@color/core_purple"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/starttext"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            android:gravity="center"
+            android:textColor="@color/core_purple"
+            android:inputType="number|numberDecimal"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/mark_end"
+            android:layout_width="wrap_content"
+            android:layout_height="31dip"
+            android:clickable="true"
+            android:gravity="center"
+            android:labelFor="@+id/endtext"
+            android:text="End"
+            android:textColor="@color/core_purple"
+            android:textSize="@dimen/_15sdp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/endtext"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:gravity="center"
+            android:textColor="@color/core_purple"
+            android:inputType="number|numberDecimal"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

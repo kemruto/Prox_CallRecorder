@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_12sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TextView
+        android:id="@+id/tv_preferences"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:text="Preferences"
+        android:background="@drawable/bg_round_top_corner_7_purple"
+        android:textSize="@dimen/_12sdp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/tv_preferences"
+        app:layout_constraintTop_toBottomOf="@id/tv_preferences"
+        android:background="@drawable/bg_round_bottom_corner_7_white"
+        android:padding="@dimen/_16sdp">
+
+        <TextView
+            android:id="@+id/tv_title_call_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Call Recording"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_call_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Allow this app to save your call \n recordings inside your storage"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_call_recording" />
+
+
+        <TextView
+            android:id="@+id/tv_title_active_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Active Notification"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_content_call_recording"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_active_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Keep this on for device using Android 9 \nor above"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_active_noti" />
+
+
+        <TextView
+            android:id="@+id/tv_title_after_call_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="After Call Notification"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_content_active_noti"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_after_call_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Notifies you everytime a recording \nis completed"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_after_call_noti" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_call_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+            app:layout_constraintTop_toTopOf="@id/tv_title_call_recording"
+            android:checked="true"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_active_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+            app:layout_constraintTop_toTopOf="@id/tv_title_active_noti"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_after_call_noti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintTop_toTopOf="@id/tv_title_after_call_noti"
+            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/constraint_limit_time_record"
+            app:layout_constraintTop_toBottomOf="@id/tv_content_after_call_noti">
+            <TextView
+                android:id="@+id/tv_title_limit_time_recording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Recording Time Limit"
+                android:textColor="@color/core_purple"
+                android:fontFamily="@font/lato_bold"
+                android:layout_marginTop="@dimen/_10sdp"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_content_limit_time_recording"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/lato_regular"
+                android:maxLines="2"
+                android:text="No limits"
+
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_limit_time_recording" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_navigate_next_24"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintTop_toTopOf="@id/tv_title_limit_time_recording"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/constraint_auto_delete"
+            app:layout_constraintTop_toBottomOf="@id/constraint_limit_time_record">
+            <TextView
+                android:id="@+id/tv_title_auto_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="Auto Delete Recordings"
+                android:textColor="@color/core_purple"
+                android:fontFamily="@font/lato_bold"
+                android:layout_marginTop="@dimen/_10sdp"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_content_auto_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/lato_regular"
+                android:maxLines="2"
+                android:text="Never"
+
+                android:textColor="@color/black"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_auto_delete" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_navigate_next_24"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:layout_constraintTop_toTopOf="@id/tv_title_auto_delete"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/core_purple"
+    android:clickable="true"
+    android:focusable="true">
+    <ImageView
+        android:id="@+id/imv_back_caller_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_back"
+
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/bg_round_7_white"
+        android:paddingBottom="@dimen/_12sdp"
+        android:translationZ="@dimen/_5sdp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.1"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imv_back_caller_detail"
+        app:layout_constraintWidth_percent="0.85">
+
+        <TextView
+            android:id="@+id/tv_caller_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Lucy"
+            android:textColor="@color/black"
+
+            android:textSize="@dimen/_15sdp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_caller_phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="01234567"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_caller_contact"
+            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
+
+        <TextView
+            android:id="@+id/tv_date_last_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Last call dd/mm/yyyy 00:00 am"
+
+            android:textSize="@dimen/_12sdp"
+
+            app:layout_constraintStart_toEndOf="@id/tv_caller_phone_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_round_top_corner_16_white"
+
+        android:layout_marginTop="@dimen/_80sdp"
+
+        app:layout_constraintTop_toTopOf="@id/container1"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <ImageView
+            android:id="@+id/imv_track_caller_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_track_call"
+            android:translationZ="@dimen/_5sdp"
+
+            android:layout_marginTop="@dimen/_40sdp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imv_track_info"/>
+
+        <ImageView
+            android:id="@+id/imv_track_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_track_info"
+            android:translationZ="@dimen/_5sdp"
+
+            android:layout_marginTop="@dimen/_40sdp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imv_track_caller_call"/>
+
+        <ImageView
+            android:id="@+id/imv_track_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_message_track_caller"
+            android:translationZ="@dimen/_5sdp"
+
+            app:layout_constraintStart_toStartOf="@id/imv_track_caller_call"
+            app:layout_constraintTop_toBottomOf="@id/imv_track_caller_call"
+            app:layout_constraintStart_toEndOf="@id/imv_track_caller_call"/>
+
+        <ImageView
+            android:id="@+id/imv_track_setting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_setting_detail"
+            android:translationZ="@dimen/_5sdp"
+
+            app:layout_constraintStart_toStartOf="@id/imv_track_info"
+            app:layout_constraintTop_toBottomOf="@id/imv_track_info"
+            app:layout_constraintStart_toEndOf="@id/imv_track_message"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

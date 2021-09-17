@@ -45,8 +45,14 @@ public class OutgoingCallAdapter extends RecyclerView.Adapter<OutgoingCallAdapte
         RecordModel recordModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
 
-        holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
-        holder.tvTime.setText(recordModel.getTime());
+        String name = recordModel.getPhoneContact();
+        String phone = recordModel.getPhoneNumber();
+        if (name.equals("")){
+            holder.tvNameContact.setText(phone);
+        }else{
+            holder.tvNameContact.setText(name);
+        }
+        holder.tvDate.setText(recordModel.getDate());
         holder.imvStatusCall.setBackgroundResource(R.drawable.ic_outgoing_call);
 
         if (recordModel.getFavourite()==1){
@@ -54,6 +60,7 @@ public class OutgoingCallAdapter extends RecyclerView.Adapter<OutgoingCallAdapte
         }else{
             holder.imvFavourite.setBackgroundResource(R.drawable.ic_gray_star);
         }
+
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,8 +76,8 @@ public class OutgoingCallAdapter extends RecyclerView.Adapter<OutgoingCallAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPhoneNumber;
-        TextView tvTime;
+        TextView tvNameContact;
+        TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
         ImageView imvPlay;
@@ -78,8 +85,8 @@ public class OutgoingCallAdapter extends RecyclerView.Adapter<OutgoingCallAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
-            tvTime = itemView.findViewById(R.id.tv_date);
+            tvNameContact = itemView.findViewById(R.id.tv_name_contact);
+            tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);
             imvPlay = itemView.findViewById(R.id.imv_play);

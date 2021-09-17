@@ -45,7 +45,13 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
         RecordModel recordModel = mList.get(position);
 
-        holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
+        String name = recordModel.getPhoneContact();
+        String phone = recordModel.getPhoneNumber();
+        if (name.equals("")){
+            holder.tvNameContact.setText(phone);
+        }else{
+            holder.tvNameContact.setText(name);
+        }
         holder.tvDate.setText(recordModel.getDate());
         holder.imvStatusCall.setBackgroundResource(R.drawable.ic_trimmed);
 
@@ -69,7 +75,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPhoneNumber;
+        TextView tvNameContact;
         TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
@@ -78,7 +84,7 @@ public class TrimmedAdapter extends RecyclerView.Adapter<TrimmedAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
+            tvNameContact = itemView.findViewById(R.id.tv_name_contact);
             tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);

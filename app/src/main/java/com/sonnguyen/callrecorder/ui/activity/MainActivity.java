@@ -14,18 +14,18 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
@@ -72,11 +72,27 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private static final String KEY_CONTACT = "KEY_CONTACT";
     private static final String KEY_OVERLAY = "KEY_OVERLAY";
     private static final String TAG = "aaa";
-    private RecordDAO recordDAO;
+    private static final int minute5 = 5;
+    private static final int minute10 = 10;
+    private static final int minute15 = 15;
+    private static final int minute20 = 20;
+    private static final int NO_LIMIT = 10000;
 
-    private ImageView imvSetting;
+    private static final int delete15Days = 15;
+    private static final int delete1Month = 30;
+    private static final int delete3Month = 90;
+    private static final int delete6Month = 180;
+    private static final int NEVER_DELETE = 10000;
+
+    private static MainActivity INSTANCE;
+    private RecordDAO recordDAO;
+    private boolean autoRecord = true;
+    private int duration = NO_LIMIT * 1000;
+    private int deleteDay = NEVER_DELETE;
+
+    private ImageView imvSetting,imvSearch;
     private Button btSkip;
-    private SwitchCompat switchStorage,switchRecord,switchContact,switchOverlay;
+    private SwitchCompat switchStorage, switchRecord, switchContact, switchOverlay;
 
     private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE
             , Manifest.permission.READ_EXTERNAL_STORAGE
@@ -90,7 +106,6 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private Intent intent1;
     private DrawerLayout drawerLayout;
     private View imvMenu;
-    private Handler handler;
     private Dialog dialog;
 
     private HomeFragment homeFragment;
@@ -103,11 +118,20 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
     private AddNoteFragment addNoteFragment;
     private EditFragment editFragment;
 
+    public static MainActivity getMainActivityInstance() {
+        return INSTANCE;
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        INSTANCE = this;
+    }
+
     @Override
     protected void initViews() {
         recordDAO = RecordDatabase.getInstance(this).recordDAO();
         sharedPreferences = getApplicationContext().getSharedPreferences(KEY_SHARE_PREFERENCES, Context.MODE_PRIVATE);
-        handler = new Handler();
 
         checkPermission();
         if (!checkPermission()) {
@@ -144,7 +168,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
         tabLayout.setupWithViewPager(viewPager);
 
         imvSetting = findViewById(R.id.imv_setting);
-
+        imvSearch = findViewById(R.id.imv_search);
     }
 
     private boolean checkPermission() {
@@ -161,32 +185,19 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
         dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.layout_permission_dialog);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
         Window window = dialog.getWindow();
         window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
         window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
 
-         switchStorage = dialog.findViewById(R.id.storage_switch);
-         switchRecord = dialog.findViewById(R.id.record_switch);
-         switchContact = dialog.findViewById(R.id.contact_switch);
-         switchOverlay = dialog.findViewById(R.id.overlay_switch);
+        switchStorage = dialog.findViewById(R.id.storage_switch);
+        switchRecord = dialog.findViewById(R.id.record_switch);
+        switchContact = dialog.findViewById(R.id.contact_switch);
+        switchOverlay = dialog.findViewById(R.id.overlay_switch);
         btSkip = dialog.findViewById(R.id.bt_skip);
         Button btGrant = dialog.findViewById(R.id.bt_grant);
-
-//        Runnable runnable = new Runnable() {
-//            @Override
-//            public void run() {
-//                if (checkPermission()){
-//                    btSkip.setEnabled(true);
-//                    btSkip.setBackgroundResource(R.drawable.bg_round_7_purple);
-//                    dialog.setCanceledOnTouchOutside(true);
-//                    dialog.setCancelable(true);
-//                }else{
-//                    btSkip.setEnabled(false);
-//                }
-//            }
-//        };
-//        handler.postDelayed(runnable,100);
 
         btSkip.setOnClickListener(v -> dialog.dismiss());
 
@@ -291,6 +302,10 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 switchRecord.setChecked(true);
             case OVERLAY_PERMISSION_REQUEST_CODE:
                 switchOverlay.setChecked(true);
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                btSkip.setBackgroundResource(R.drawable.bg_round_7_purple);
+                btSkip.setEnabled(true);
         }
     }
 
@@ -303,6 +318,13 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
             settingFragment.setCallBack(this);
             settingFragment.setCallBackService(this);
             showFragment(R.id.frame_layout, settingFragment, true);
+        });
+
+        imvSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPermissionDialog();
+            }
         });
     }
 
@@ -352,7 +374,8 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 String contact = getContactNameByNumber(phoneNumber);
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 LocalDateTime dateTime = LocalDateTime.now();
-                CallerModel callerModel = new CallerModel(contact, phoneNumber, dtf.format(dateTime));
+                Log.i(TAG, "dateTime" + dtf.format(dateTime));
+                CallerModel callerModel = new CallerModel(contact, phoneNumber, "dtf.format(dateTime)","");
                 recordDAO.insertCaller(callerModel);
 
                 Bundle bundle3 = new Bundle();
@@ -360,18 +383,55 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 Intent intent = new Intent(this, SecondActivity.class);
                 intent.putExtras(bundle3);
                 startActivity(intent);
+                break;
+            case SettingFragment.KEY_AUTO_DELETE:
+                int i = (int) object;
+                switch (i) {
+                    case 0:
+                        deleteDay = delete15Days;
+                        break;
+                    case 1:
+                        deleteDay = delete1Month;
+                        break;
+                    case 2:
+                        deleteDay = delete3Month;
+                        break;
+                    case 3:
+                        deleteDay = delete6Month;
+                        break;
+                    case 4:
+                        deleteDay = NEVER_DELETE;
+                        break;
+                }
+                break;
         }
     }
 
     @Override
     public void onCallbackService(String key, Object object) {
-        switch (key){
+        switch (key) {
             case SettingFragment.KEY_SETTING_TO_MAIN_TO_SERVICE:
-//                boolean check = (boolean) object;
-//                Intent intentService = new Intent(this,AutoRecordService.class);
-//                intentService.putExtra("KEY_AUTO_RECORD",check);
-//                startService(intentService);
+                autoRecord = (boolean) object;
                 break;
+            case SettingFragment.KEY_TIME_LIMIT:
+                int i = (int) object;
+                switch (i) {
+                    case 0:
+                        duration = minute5 * 1000;
+                        break;
+                    case 1:
+                        duration = minute10 * 1000;
+                        break;
+                    case 2:
+                        duration = minute15 * 1000;
+                        break;
+                    case 3:
+                        duration = minute20 * 1000;
+                        break;
+                    case 4:
+                        duration = NO_LIMIT * 1000;
+                        break;
+                }
         }
     }
 
@@ -393,9 +453,20 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 contactLookup.close();
             }
         }
-
         return name;
     }
 
+    public boolean getAutoRecord() {
+        return this.autoRecord;
+    }
+
+    public int getDurationRecord() {
+        return this.duration;
+    }
+
+    public int getAutoDeleteDay() {
+        return this.deleteDay;
+    }
 
 }
+

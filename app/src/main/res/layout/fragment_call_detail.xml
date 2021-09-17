@@ -43,14 +43,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container1"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/bg_round_7_white"
         android:paddingBottom="@dimen/_12sdp"
         android:translationZ="@dimen/_5sdp"
 
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.1"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imv_back_detail"
@@ -87,7 +86,7 @@
             app:layout_constraintTop_toTopOf="@id/imv_detail_status_call" />
 
         <TextView
-            android:id="@+id/tv_track_caller_date"
+            android:id="@+id/tv_detail_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -128,14 +127,13 @@
         <SeekBar
             android:id="@+id/seekbar"
             android:layout_width="0dp"
-            android:layout_height="2dp"
+            android:layout_height="30dp"
             app:layout_constraintWidth_percent="0.9"
 
             android:max="100"
             android:progressBackgroundTint="@color/gray"
             android:progressTint="@color/core_purple"
             android:thumbTint="@color/core_purple"
-            android:progress="40"
 
             android:layout_marginBottom="@dimen/_10sdp"
 

@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sonnguyen.callrecorder.OnActionCallbackFragment;
@@ -17,7 +15,6 @@ import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.CallerModel;
-import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 
 import java.util.List;
 
@@ -53,7 +50,7 @@ public class CallerAdapter extends RecyclerView.Adapter<CallerAdapter.ViewHolder
         CallerModel callerModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
         holder.tvPhoneNumber.setText(callerModel.getPhoneNumber());
-        holder.tvDate.setText(callerModel.getDate());
+        holder.tvDate.setText(callerModel.getCreateAt());
     }
 
     @Override
@@ -70,7 +67,7 @@ public class CallerAdapter extends RecyclerView.Adapter<CallerAdapter.ViewHolder
             super(itemView);
             tvPhoneNumber = itemView.findViewById(R.id.tv_caller_phonenumber);
             btTrack = itemView.findViewById(R.id.bt_caller_track);
-            tvDate = itemView.findViewById(R.id.tv_track_caller_date);
+            tvDate = itemView.findViewById(R.id.tv_caller_date);
         }
     }
 }

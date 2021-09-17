@@ -45,8 +45,13 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
         RecordModel recordModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
 
-        holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
-        holder.tvDate.setText(recordModel.getDate());
+        String name = recordModel.getPhoneContact();
+        String phone = recordModel.getPhoneNumber();
+        if (name.equals("")){
+            holder.tvNameContact.setText(phone);
+        }else{
+            holder.tvNameContact.setText(name);
+        }
         holder.imvStatusCall.setBackgroundResource(R.drawable.ic_incoming_call);
 
         if (recordModel.getFavourite()==1){
@@ -54,6 +59,8 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
         }else{
             holder.imvFavourite.setBackgroundResource(R.drawable.ic_gray_star);
         }
+
+        holder.tvDate.setText(recordModel.getDate());
 
         holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +76,7 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPhoneNumber;
+        TextView tvNameContact;
         TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
@@ -78,7 +85,7 @@ public class IncomingCallAdapter extends RecyclerView.Adapter<IncomingCallAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
+            tvNameContact = itemView.findViewById(R.id.tv_name_contact);
             tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);

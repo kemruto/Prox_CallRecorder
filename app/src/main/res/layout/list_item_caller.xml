@@ -26,18 +26,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_caller_phonenumber"
         app:layout_constraintStart_toStartOf="@id/tv_caller_phonenumber"/>
 
-    <TextView
-        android:id="@+id/tv_caller_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="00:00 am"
-        android:fontFamily="@font/lato_regular"
-
-        android:layout_marginStart="@dimen/_15sdp"
-
-        app:layout_constraintTop_toTopOf="@id/tv_caller_date"
-        app:layout_constraintStart_toEndOf="@id/tv_caller_date"/>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bt_caller_track"
         android:layout_width="@dimen/_100sdp"

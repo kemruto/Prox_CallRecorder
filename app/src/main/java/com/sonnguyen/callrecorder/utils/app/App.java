@@ -36,4 +36,5 @@ public class App extends Application {
             notificationManager.createNotificationChannel(channel);
         }
     }
+
 }

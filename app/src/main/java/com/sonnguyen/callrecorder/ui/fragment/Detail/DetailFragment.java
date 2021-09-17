@@ -1,9 +1,10 @@
 package com.sonnguyen.callrecorder.ui.fragment.Detail;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,17 +32,19 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
     public static final String KEY_DELETE_SUCCESS = "KEY_DELETE_SUCCESS";
     public static final String KEY_DETAIL_TO_TRIM = "KEY_DETAIL_TO_TRIM";
     private static final String TAG = "aaa";
-    private OnActionCallbackFragment callbackFragment;
-    private ImageView imvBack, imvShare, imvBin, imvAddNote, imvTrim, imvPlay, imvStatusCall, imvTrimmed;
-    private TextView tvPhoneNumber, tvDate,tvStartTime,tvEndTime;
-    private RecordModel recordModel;
-    private MediaPlayer mediaPlayer = new MediaPlayer();
-    private int state;
     public static int PLAYING = 0;
     public static int PAUSE = 1;
     public static int STOP = 2;
+    private final MediaPlayer mediaPlayer = new MediaPlayer();
+    public Handler handler;
+    private OnActionCallbackFragment callbackFragment;
+    private ImageView imvBack, imvShare, imvBin, imvAddNote, imvTrim, imvPlay, imvStatusCall, imvTrimmed;
+    private TextView tvNameContact, tvDate, tvStartTime, tvEndTime;
+    private RecordModel recordModel;
+    private int state;
     private Thread thTask;
     private SeekBar seekBar;
+    private Runnable runnable;
 
     @Override
     protected Class getClassModel() {
@@ -51,7 +54,6 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
     @Override
     protected void initEvents() {
         imvBack.setOnClickListener(v -> {
-            sendMessageToHome();
             getFragmentManager().popBackStack();
         });
 
@@ -77,33 +79,22 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         });
 
         imvAddNote.setOnClickListener(v -> {
-            callbackFragment.onCallback(KEY_DETAIL_TO_ADD_NOTE,recordModel);
+            callbackFragment.onCallback(KEY_DETAIL_TO_ADD_NOTE, recordModel);
         });
 
-        imvTrim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callbackFragment.onCallback(KEY_DETAIL_TO_TRIM,recordModel);
-            }
-        });
+        imvTrim.setOnClickListener(v -> callbackFragment.onCallback(KEY_DETAIL_TO_TRIM, recordModel));
 
         imvBin.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle("Delete record");
             builder.setMessage("Do you want to delete this record");
             builder.setCancelable(false);
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.cancel();
-                }
-            });
-            builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    mViewModel.deleteRecord(recordModel);
-                    dialog.dismiss();
-                }
+            builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+            builder.setPositiveButton("Confirm", (dialog, which) -> {
+                mViewModel.deleteRecord(recordModel);
+                sendMessageToHome();
+                dialog.dismiss();
+                getFragmentManager().popBackStack();
             });
             AlertDialog dialog = builder.create();
             dialog.show();
@@ -115,7 +106,6 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         EventBus.getDefault().post(messageEvent);
     }
 
-
     @Override
     protected void initViews() {
         mViewModel.setContext(getContext());
@@ -126,13 +116,20 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         imvAddNote = findViewById(R.id.imv_add_note);
         imvTrim = findViewById(R.id.imv_trimmed);
         imvPlay = findViewById(R.id.imv_play_detail);
-        tvPhoneNumber = findViewById(R.id.tv_caller_contact);
-        tvDate = findViewById(R.id.tv_track_caller_date);
+        tvNameContact = findViewById(R.id.tv_caller_contact);
+        tvDate = findViewById(R.id.tv_detail_date);
         tvStartTime = findViewById(R.id.tv_start_time);
         tvEndTime = findViewById(R.id.tv_end_time);
         seekBar = findViewById(R.id.seekbar);
 
         getFirstValue();
+        try {
+            mediaPlayer.setDataSource(recordModel.getPath());
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         startBGTask();
     }
 
@@ -142,12 +139,17 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
             recordModel = (RecordModel) bundle.getSerializable(MainActivity.KEYBUNDLE_HOMEFRAGMENT_DETAILFRAGMENT);
         }
 
-        // thiết lập các giá trị title , content , time , imvPin cho userModel
-        tvPhoneNumber.setText(recordModel.getPhoneNumber());
+        String name = recordModel.getPhoneContact();
+        String phone = recordModel.getPhoneNumber();
+        if (name.equals("")) {
+            tvNameContact.setText(phone);
+        } else {
+            tvNameContact.setText(name);
+        }
         tvDate.setText(recordModel.getDate());
-        if (recordModel.getStatus()==0){
+        if (recordModel.getStatus() == 0) {
             imvStatusCall.setBackgroundResource(R.drawable.ic_outgoing_call);
-        }else if (recordModel.getStatus()==1){
+        } else if (recordModel.getStatus() == 1) {
             imvStatusCall.setBackgroundResource(R.drawable.ic_incoming_call);
         }
         state = STOP;
@@ -164,69 +166,60 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
     }
 
     private void startBGTask() {
-        thTask = new Thread(){
+        handler = new Handler();
+        getActivity().runOnUiThread(runnable = new Runnable() {
             @Override
             public void run() {
-                while (true){
-                    try {
-                        Thread.sleep(500);
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                String currentTime = getCurrentTime();
-                                String totalTime = getTotalTime();
-                                int currentDuration = getCurrentDuration();
-                                int totalDuration = getTotalDuration();
+                if (getActivity() != null) {
+                    String currentTime = getCurrentTime();
+                    String totalTime = getTotalTime();
+                    int currentDuration = getCurrentDuration();
+                    int totalDuration = getTotalDuration();
+                    Log.i(TAG, "currentTime: " + currentTime);
+                    Log.i(TAG, "totalTime: " + totalTime);
+                    Log.i(TAG, "currentDuration: " + currentDuration);
+                    Log.i(TAG, "totalDuration: " + totalDuration);
 
-                                tvStartTime.setText(currentTime);
-                                tvEndTime.setText(totalTime);
-                                seekBar.setMax(totalDuration);
-                                seekBar.setProgress(currentDuration);
-                            }
-                        });
-                    }
-                    catch (Exception e){
-                        e.getMessage();
-                        return;
-                    }
+                    tvStartTime.setText(currentTime);
+                    tvEndTime.setText(totalTime);
+                    seekBar.setMax(totalDuration);
+                    seekBar.setProgress(currentDuration);
+                    handler.postDelayed(this,500);
                 }
             }
-        };
-        thTask.start();
+        });
     }
 
     private void play() {
-        Log.i(TAG, "play: "+recordModel.getPath());
         try {
-            if (state==STOP){
-                mediaPlayer.reset();
-                mediaPlayer.setDataSource(recordModel.getPath());
-                mediaPlayer.prepare();
+            if (state == STOP) {
                 mediaPlayer.start();
                 state = PLAYING;
-            }else if(state==PLAYING){
+            } else if (state == PLAYING) {
                 mediaPlayer.pause();
                 state = PAUSE;
-            }else if (state==PAUSE){
+            } else if (state == PAUSE) {
                 mediaPlayer.start();
                 state = PLAYING;
             }
-            if (state==PLAYING){
-                imvPlay.setImageLevel(0);
-            }else {
-                imvPlay.setImageLevel(1);
-            }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (state == PLAYING) {
+            imvPlay.setImageLevel(1);
+        } else {
+            imvPlay.setImageLevel(0);
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     public String getCurrentTime() {
         String time = "00:00";
         try {
-            int duration = mediaPlayer.getCurrentPosition();
+            int currentPosition = mediaPlayer.getCurrentPosition();
             SimpleDateFormat df = new SimpleDateFormat("mm:ss");
-            time = df.format(new Date(duration));
+            time = df.format(new Date(currentPosition));
         } catch (Exception e) {
             e.getMessage();
         }
@@ -238,9 +231,8 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         try {
             int duration = mediaPlayer.getDuration();
             SimpleDateFormat df = new SimpleDateFormat("mm:ss");
-            time =df.format(new Date(duration));
-
-        }catch (Exception e){
+            time = df.format(new Date(duration));
+        } catch (Exception e) {
             e.getMessage();
         }
         return time;
@@ -257,15 +249,15 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
     public int getTotalDuration() {
         try {
             return mediaPlayer.getDuration();
-        }catch (Exception ignored){
+        } catch (Exception ignored) {
         }
         return 100;
     }
 
     public void seekTo(int progress) {
-        try{
+        try {
             mediaPlayer.seekTo(progress);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -274,5 +266,24 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         this.callbackFragment = callbackFragment;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroyDetail: ");
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStopDetail: ");
+        handler.removeCallbacks(runnable);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacks(runnable);
+    }
 }
 

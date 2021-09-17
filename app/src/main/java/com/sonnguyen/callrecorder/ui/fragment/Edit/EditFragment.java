@@ -68,9 +68,6 @@ public class EditFragment extends BaseFragment<EditViewModel>
     private SoundFile mSoundFile;
     private File mFile;
     private String mFilename;
-    private String mArtist;
-    private String mTitle;
-    private int mNewFileKind;
     private boolean mWasGetContentIntent;
     private WaveformView mWaveformView;
     private MarkerView mStartMarker;

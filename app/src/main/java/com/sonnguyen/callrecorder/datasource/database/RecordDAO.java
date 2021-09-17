@@ -16,7 +16,7 @@ public interface RecordDAO {
     @Insert
     public void insertRecord(RecordModel recordModel);
 
-    @Query("Select *From RECORD_MODEL")
+    @Query("Select *From RECORD_MODEL ORDER BY id DESC")
     public List<RecordModel> listRecord();
 
     @Update
@@ -24,9 +24,6 @@ public interface RecordDAO {
 
     @Delete
     public void deleteRecord(RecordModel recordModel);
-
-    @Query("Select *From "+"RECORD_MODEL"+" Where phoneNumber = :phone")
-    public List<RecordModel> searchPhone(String phone);
 
     @Query("Select *From "+"RECORD_MODEL"+" Where status = 1 ")
     public List<RecordModel> listIncomingCall ();

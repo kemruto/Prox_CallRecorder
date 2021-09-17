@@ -52,7 +52,13 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull HomeAdapter.ViewHolder holder, int position) {
         RecordModel recordModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
-        holder.tvPhoneNumber.setText(recordModel.getPhoneNumber());
+        String name = recordModel.getPhoneContact();
+        String phone = recordModel.getPhoneNumber();
+        if (name.equals("")){
+            holder.tvNameContact.setText(phone);
+        }else{
+            holder.tvNameContact.setText(name);
+        }
         holder.tvDate.setText(recordModel.getDate());
 
         if (recordModel.getStatus()==1){
@@ -85,21 +91,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             }
         });
 
-        holder.imvPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,recordModel);
-            }
-        });
-
-//        holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,null);
-//            }
-//        });
+        holder.imvPlay.setOnClickListener(v -> callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,recordModel));
     }
-
 
     @Override
     public int getItemCount() {
@@ -107,7 +100,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvPhoneNumber;
+        TextView tvNameContact;
         TextView tvDate;
         ImageView imvStatusCall;
         ImageView imvFavourite;
@@ -116,7 +109,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvPhoneNumber = itemView.findViewById(R.id.tv_name_contact);
+            tvNameContact = itemView.findViewById(R.id.tv_name_contact);
             tvDate = itemView.findViewById(R.id.tv_date);
             imvStatusCall = itemView.findViewById(R.id.lv_status_call);
             imvFavourite = itemView.findViewById(R.id.lv_status_star);

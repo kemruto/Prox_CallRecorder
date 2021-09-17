@@ -14,7 +14,7 @@
 
     <application
         android:name=".utils.app.App"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -35,7 +35,7 @@
         <activity android:name=".ui.activity.SecondActivity"
             android:windowSoftInputMode="adjustNothing"/>
 
-        <receiver android:name="CallRecorder"
+        <receiver android:name=".CallReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -46,13 +46,7 @@
         <service android:name=".service.AutoRecordService"
             android:exported="true"
             android:enabled="true"/>
-        
-        <service android:name=".service.TouchAndDragService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-            <intent-filter>
-                <action android:name="android.accessibilityservice.AccessibilityService" />
-            </intent-filter>
-        </service>
+
     </application>
 
 </manifest>

@@ -15,24 +15,28 @@ public class RecordModel implements Serializable {
     @PrimaryKey (autoGenerate = true)
     private int id;
 
+    private String phoneContact;
     private String phoneNumber;
     private int status;
     private String date;
-    private String time;
     private int favourite;
     private int trimmed;
     private String path;
     private String note;
+    private String createAt;
+    private String updateAt;
 
-    public RecordModel(String phoneNumber, int status, String date,String time, int favourite, int trimmed,String path,String note) {
+    public RecordModel(String phoneContact,String phoneNumber, int status, String date, int favourite, int trimmed,String path,String note,String createAt,String updateAt) {
+        this.phoneContact = phoneContact;
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.date = date;
-        this.time = time;
         this.favourite = favourite;
         this.trimmed = trimmed;
         this.path = path;
         this.note = note;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
     }
 
     public int getId() {
@@ -41,6 +45,14 @@ public class RecordModel implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getPhoneContact() {
+        return phoneContact;
+    }
+
+    public void setPhoneContact(String phoneContact) {
+        this.phoneContact = phoneContact;
     }
 
     public String getPhoneNumber() {
@@ -65,14 +77,6 @@ public class RecordModel implements Serializable {
 
     public void setDate(String date) {
         this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public int getFavourite() {
@@ -105,5 +109,21 @@ public class RecordModel implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 }

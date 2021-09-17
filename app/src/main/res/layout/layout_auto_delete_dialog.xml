@@ -26,11 +26,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title_delete_dialog">
 
         <TextView
-            android:id="@+id/tv_15day"
+            android:id="@+id/tv_15days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="15 Days"
+            android:text="@string/delete_15days"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
@@ -42,21 +42,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="1 Month"
+            android:text="@string/delete_1month"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
             android:layout_marginTop="@dimen/_15sdp"
 
-            app:layout_constraintStart_toStartOf="@id/tv_15day"
-            app:layout_constraintTop_toBottomOf="@id/tv_15day"/>
+            app:layout_constraintStart_toStartOf="@id/tv_15days"
+            app:layout_constraintTop_toBottomOf="@id/tv_15days"/>
 
         <TextView
-            android:id="@+id/tv_3month"
+            android:id="@+id/tv_3months"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="60 Minutes"
+            android:text="@string/delete_3months"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
@@ -66,35 +66,35 @@
             app:layout_constraintTop_toBottomOf="@id/tv_1month"/>
 
         <TextView
-            android:id="@+id/tv_6month"
+            android:id="@+id/tv_6months"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="6 Months"
+            android:text="@string/delete_6months"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
             android:layout_marginTop="@dimen/_15sdp"
 
-            app:layout_constraintStart_toStartOf="@id/tv_3month"
-            app:layout_constraintTop_toBottomOf="@id/tv_3month"/>
+            app:layout_constraintStart_toStartOf="@id/tv_3months"
+            app:layout_constraintTop_toBottomOf="@id/tv_3months"/>
 
         <TextView
-            android:id="@+id/tv_never"
+            android:id="@+id/tv_never_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="Never"
+            android:text="@string/never_delete"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
             android:layout_marginTop="@dimen/_15sdp"
 
-            app:layout_constraintStart_toStartOf="@id/tv_6month"
-            app:layout_constraintTop_toBottomOf="@id/tv_6month"/>
+            app:layout_constraintStart_toStartOf="@id/tv_6months"
+            app:layout_constraintTop_toBottomOf="@id/tv_6months"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/bt_submit_timesetting"
+            android:id="@+id/bt_submit_auto_delete"
             android:layout_width="@dimen/_115sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="Submit"
@@ -106,8 +106,52 @@
 
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_never"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_never_delete"/>
 
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_15days_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_15days"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_1month_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_1month"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_3months_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_3months"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_6months_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_6months"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_never_delete_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_never_delete"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

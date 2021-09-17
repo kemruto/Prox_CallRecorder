@@ -5,15 +5,19 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ContentResolver;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.media.MediaRecorder;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.os.IBinder;
+import android.provider.BaseColumns;
+import android.provider.ContactsContract;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,18 +27,13 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.sonnguyen.callrecorder.MessageEvent;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 import com.sonnguyen.callrecorder.ui.activity.MainActivity;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
+import com.sonnguyen.callrecorder.ui.activity.SecondActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -45,19 +44,19 @@ import java.util.Date;
 import java.util.Locale;
 
 import static com.sonnguyen.callrecorder.utils.app.App.CHANNEL_ID;
-import static com.sonnguyen.callrecorder.utils.app.App.getContext;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class AutoRecordService extends Service {
     private static final String TAG = "aaa";
     private static String phoneNumber;
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    LocalDateTime dateTime = LocalDateTime.now();
+    DateTimeFormatter createFormatDate = DateTimeFormatter.ISO_DATE;
+    LocalDateTime localDateTime = LocalDateTime.now();
     private MediaRecorder mediaRecorder;
     private boolean isRecording;
     private RecordDAO recordDAO;
     private int status = 0;
-    private String recordFile;
+    private String recordFile,phoneContact="";
     private File parentDir;
     private String fileName;
 
@@ -67,7 +66,10 @@ public class AutoRecordService extends Service {
     private View myFloatingView;
     private ImageView imvMic;
     private boolean muteRecording = false;
-    private boolean autoRecord;
+    private boolean autoRecord = true;
+    private boolean pauseRecord;
+    private int duration;
+    private Thread thread;
 
     @Nullable
     @Override
@@ -91,43 +93,65 @@ public class AutoRecordService extends Service {
         if (muteRecording) {
             imvMic.setBackgroundResource(R.drawable.ic_mic_on_24);
             muteRecording = false;
+            startRecording(duration);
             return;
+        }else{
+            muteRecording = true;
+            imvMic.setBackgroundResource(R.drawable.ic_mic_off_24);
+            stopRecording();
         }
-        muteRecording = true;
-        imvMic.setBackgroundResource(R.drawable.ic_mic_off_24);
     }
+
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         phoneNumber = intent.getStringExtra("phoneNumber");
-        autoRecord = intent.getBooleanExtra("KEY_AUTO_RECORD", true);
-        if (intent.getAction().equals("OFFHOOK")) {
+        autoRecord = MainActivity.getMainActivityInstance().getAutoRecord();
+        duration = MainActivity.getMainActivityInstance().getDurationRecord();
+//        phoneContact = getContactNameByNumber(phoneNumber);
+        if (intent.getAction() == "OFFHOOK") {
             createNotificationChannel();
             buildStartNotification();
-//            createView();
-            startRecording();
-        } else if (intent.getAction().equals("IDLE")) {
+            createView();
+            if (autoRecord) {
+                startRecording(duration);
+            } else {
+                backgroundMuteRecord();
+            }
+        } else if (intent.getAction() == "IDLE") {
             stopRecording();
-//            if (!removeView) {
-//                removeView = true;
-//                mWindowManager.removeView(myFloatingView);
-//            }
-            stopSelf();
         } else if (intent.getAction() == "RINGING") {
             status = 1;
-            Log.i(TAG, "incoming call");
+            Log.i(TAG, "Incoming call");
         }
         return START_STICKY;
     }
 
-    private void startRecording() {
+    private void backgroundMuteRecord() {
+        thread = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(500);
+                    muteRecording();
+                } catch (Exception e) {
+                    e.getMessage();
+                }
+            }
+        };
+        thread.start();
+    }
+
+    private void startRecording(int duration) {
         if (!isRecording) {
             mediaRecorder = new MediaRecorder();
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
             mediaRecorder.setOutputFile(getRecordingFilePath());
-            mediaRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+            mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB);
+            mediaRecorder.setMaxDuration(duration);
             try {
                 mediaRecorder.prepare();
             } catch (IOException e) {
@@ -154,17 +178,45 @@ public class AutoRecordService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void stopRecording() {
         if (isRecording) {
+            if (!removeView && addView) {
+                removeView = true;
+                mWindowManager.removeView(myFloatingView);
+            }
             mediaRecorder.stop();
             mediaRecorder.reset();
             mediaRecorder.release();
             mediaRecorder = null;
 
-            RecordModel recordModel = new RecordModel(phoneNumber
-                    , status, formatter.format(dateTime), "", 0, 0, fileName, "");
+            phoneContact = getContactNameByNumber(phoneNumber);
+            RecordModel recordModel = new RecordModel(phoneContact,phoneNumber
+                    , status, formatter.format(localDateTime), 0, 0, fileName, ""
+                    ,createFormatDate.format(localDateTime),"");
             recordDAO.insertRecord(recordModel);
             isRecording = false;
             Log.i("aaa", "stop recording");
+            stopSelf();
         }
+    }
+
+    public String getContactNameByNumber(String number) {
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+        String name = "";
+
+        ContentResolver contentResolver = this.getContentResolver();
+        Cursor contactLookup = contentResolver.query(uri, new String[]{BaseColumns._ID,
+                ContactsContract.PhoneLookup.DISPLAY_NAME}, null, null, null);
+
+        try {
+            if (contactLookup != null && contactLookup.getCount() > 0) {
+                contactLookup.moveToNext();
+                name = contactLookup.getString(contactLookup.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+            }
+        } finally {
+            if (contactLookup != null) {
+                contactLookup.close();
+            }
+        }
+        return name;
     }
 
     private void createView() {
@@ -192,7 +244,6 @@ public class AutoRecordService extends Service {
             mWindowManager.addView(myFloatingView, params);
         }
 
-        //adding an touchlistener to make drag movement of the floating widget
         myFloatingView.findViewById(R.id.floating_view).setOnTouchListener(new View.OnTouchListener() {
             private int initialX;
             private int initialY;
@@ -201,7 +252,6 @@ public class AutoRecordService extends Service {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.d("TOUCH", "THIS IS TOUCHED");
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         initialX = params.x;
@@ -249,5 +299,10 @@ public class AutoRecordService extends Service {
         startForeground(1, notification);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i(TAG, "onDestroyService: ");
+    }
 }
 

@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import com.sonnguyen.callrecorder.datasource.model.CallerModel;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 
-@Database(entities = {RecordModel.class, CallerModel.class},version = 1)
+@Database(entities = {RecordModel.class, CallerModel.class},version = 2)
 public abstract class RecordDatabase extends RoomDatabase {
     private static RecordDatabase instance;
 
@@ -16,6 +16,7 @@ public abstract class RecordDatabase extends RoomDatabase {
         if(instance==null){
             instance = Room.databaseBuilder(context, RecordDatabase.class, "RECORD_DATABASE")
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return instance;

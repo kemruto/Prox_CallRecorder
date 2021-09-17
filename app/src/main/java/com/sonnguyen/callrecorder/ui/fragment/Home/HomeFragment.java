@@ -1,6 +1,7 @@
 package com.sonnguyen.callrecorder.ui.fragment.Home;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,6 +43,8 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
     private RecyclerView recyclerView;
     private OnActionCallbackFragment callbackFragment;
     private RecordDAO recordDAO;
+    private Thread thread;
+    private int autoDeleteDay;
 
     @Override
     protected Class getClassModel() {
@@ -62,9 +66,28 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
     protected void initViews() {
         mViewModel.setContext(getContext());
         recordDAO = RecordDatabase.getInstance(getContext()).recordDAO();
+        autoDeleteDay = MainActivity.getMainActivityInstance().getAutoDeleteDay();
         recyclerView = findViewById(R.id.list_item);
         listRecord = new ArrayList<>();
         showListRecord();
+        backgroundAutoDeleteThread();
+    }
+
+    private void backgroundAutoDeleteThread() {
+        thread = new Thread(){
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void run() {
+                super.run();
+                try {
+                    Thread.sleep(500);
+                    mViewModel.autoDelete(autoDeleteDay);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        thread.start();
     }
 
     private void showListRecord() {

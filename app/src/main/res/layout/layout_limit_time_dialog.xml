@@ -26,11 +26,11 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title_dialog_turorial">
 
         <TextView
-            android:id="@+id/tv_15minute"
+            android:id="@+id/tv_5minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="15 Minutes"
+            android:text="@string/minute5"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
@@ -38,11 +38,39 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/tv_30minute"
+            android:id="@+id/tv_10minute"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="30 Minutes"
+            android:text="@string/minute10"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato_regular"
+
+            android:layout_marginTop="@dimen/_15sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_5minute"
+            app:layout_constraintTop_toBottomOf="@id/tv_5minute"/>
+
+        <TextView
+            android:id="@+id/tv_15minute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_14sdp"
+            android:text="@string/minute15"
+            android:textColor="@color/black"
+            android:fontFamily="@font/lato_regular"
+
+            android:layout_marginTop="@dimen/_15sdp"
+
+            app:layout_constraintStart_toStartOf="@id/tv_10minute"
+            app:layout_constraintTop_toBottomOf="@id/tv_10minute"/>
+
+        <TextView
+            android:id="@+id/tv_20minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_14sdp"
+            android:text="@string/minute20"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
@@ -52,49 +80,21 @@
             app:layout_constraintTop_toBottomOf="@id/tv_15minute"/>
 
         <TextView
-            android:id="@+id/tv_60minute"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_14sdp"
-            android:text="60 Minutes"
-            android:textColor="@color/black"
-            android:fontFamily="@font/lato_regular"
-
-            android:layout_marginTop="@dimen/_15sdp"
-
-            app:layout_constraintStart_toStartOf="@id/tv_30minute"
-            app:layout_constraintTop_toBottomOf="@id/tv_30minute"/>
-
-        <TextView
-            android:id="@+id/tv_120minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_14sdp"
-            android:text="120 Minutes"
-            android:textColor="@color/black"
-            android:fontFamily="@font/lato_regular"
-
-            android:layout_marginTop="@dimen/_15sdp"
-
-            app:layout_constraintStart_toStartOf="@id/tv_60minute"
-            app:layout_constraintTop_toBottomOf="@id/tv_60minute"/>
-
-        <TextView
             android:id="@+id/tv_nolimit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/_14sdp"
-            android:text="No limits"
+            android:text="@string/no_limit"
             android:textColor="@color/black"
             android:fontFamily="@font/lato_regular"
 
             android:layout_marginTop="@dimen/_15sdp"
 
-            app:layout_constraintStart_toStartOf="@id/tv_120minutes"
-            app:layout_constraintTop_toBottomOf="@id/tv_120minutes"/>
+            app:layout_constraintStart_toStartOf="@id/tv_20minutes"
+            app:layout_constraintTop_toBottomOf="@id/tv_20minutes"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/bt_submit_timesetting"
+            android:id="@+id/bt_submit_time_setting"
             android:layout_width="@dimen/_115sdp"
             android:layout_height="@dimen/_40sdp"
             android:text="Submit"
@@ -109,6 +109,24 @@
             app:layout_constraintTop_toBottomOf="@id/tv_nolimit"/>
 
         <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_5minute_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_5minute"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imv_10minute_check"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_unchecked"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_10minute"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imv_15minute_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -118,31 +136,13 @@
             app:layout_constraintTop_toTopOf="@id/tv_15minute"/>
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imv_30minute_check"
+            android:id="@+id/imv_20minute_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/ic_unchecked"
 
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_30minute"/>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imv_60minute_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_unchecked"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_60minute"/>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imv_120minute_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ic_unchecked"
-
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_120minutes"/>
+            app:layout_constraintTop_toTopOf="@id/tv_20minutes"/>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imv_nolimit_check"

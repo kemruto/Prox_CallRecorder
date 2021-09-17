@@ -1,7 +1,28 @@
 <resources>
     <string name="app_name">CallRecorder</string>
     <string name="call_null">Does not have any record call</string>
-    <string name="content_storage_permisson">Allow this app to save your call recordings inside your storage</string>
     <string name="start_marker">start marker</string>
     <string name="end_marker">end marker</string>
+
+    <string name="minute5">5 minutes</string>
+    <string name="minute10">10 minutes</string>
+    <string name="minute15">15 minutes</string>
+    <string name="minute20">20 minutes</string>
+    <string name="no_limit">No limit</string>
+
+    <string name="delete_15days">15 days</string>
+    <string name="delete_1month">1 month</string>
+    <string name="delete_3months">3 months</string>
+    <string name="delete_6months">6 months</string>
+    <string name="never_delete">Never</string>
+
+    <string name="title_layout_permission">Give permission for using app</string>
+    <string name="title_storage_permission">Storage</string>
+    <string name="content_storage_permission">Allow this app to save your call recordings  inside your storage</string>
+    <string name="title_record_permission">Record Audio</string>
+    <string name="content_record_permission">Required to record your call</string>
+    <string name="content_contact_permission">Allow this app to fetch contact names <br/> from your phonebook</string>
+    <string name="content_overlay_permission">Required to show caller info after each call</string>
+    <string name="title_overlay_permission">Overlay</string>
+    <string name="title_contact_permission">Contacts</string>
 </resources>

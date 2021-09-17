@@ -13,12 +13,14 @@ public class CallerModel implements Serializable {
 
     private String nameContact;
     private String phoneNumber;
-    private String date;
+    private String createAt;
+    private String updateAt;
 
-    public CallerModel(String nameContact, String phoneNumber,String date) {
+    public CallerModel(String nameContact, String phoneNumber,String createAt,String updateAt) {
         this.nameContact = nameContact;
         this.phoneNumber = phoneNumber;
-        this.date = date;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
     }
 
     public int getId() {
@@ -45,11 +47,19 @@ public class CallerModel implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getDate() {
-        return date;
+    public String getCreateAt() {
+        return createAt;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 }

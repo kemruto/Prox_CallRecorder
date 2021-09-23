@@ -49,7 +49,7 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_call_recording"
+            app:layout_constraintEnd_toStartOf="@id/switch_missed_call"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_missed_call" />
 
@@ -79,7 +79,7 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_active_noti"
+            app:layout_constraintEnd_toStartOf="@id/switch_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_completed_call" />
 
@@ -108,17 +108,75 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_after_call_noti"
+            app:layout_constraintEnd_toStartOf="@id/switch_no_answer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_no_answer" />
 
+        <TextView
+            android:id="@+id/tv_title_unknown_caller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Unknown Caller"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_content_no_answer"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_unknown_caller"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Call information after a call from a number not in your contact list with multiple options to handle contact information"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintEnd_toStartOf="@id/switch_unknown_caller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_unknown_caller" />
+
+        <TextView
+            android:id="@+id/tv_title_real_time_call_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Real-time Call Information"
+            android:textColor="@color/core_purple"
+            android:fontFamily="@font/lato_bold"
+            android:layout_marginTop="@dimen/_10sdp"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_content_unknown_caller"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_content_real_time_call_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:fontFamily="@font/lato_regular"
+            android:maxLines="2"
+            android:text="Identify callers - even the one not in your contact list"
+
+            android:textColor="@color/black"
+
+            app:layout_constraintEnd_toStartOf="@id/switch_unknown_caller"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_title_real_time_call_information" />
+
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_call_recording"
+            android:id="@+id/switch_missed_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:thumb="@drawable/bg_thumb"
-            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_title_missed_call"
             android:checked="true"
 
@@ -126,113 +184,54 @@
             app:track="@drawable/bg_track" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_active_noti"
+            android:id="@+id/switch_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:thumb="@drawable/bg_thumb"
-            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+            app:layout_constraintEnd_toEndOf="@id/switch_missed_call"
             app:layout_constraintTop_toTopOf="@id/tv_title_completed_call"
 
             app:thumbTint="@color/white"
             app:track="@drawable/bg_track" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_after_call_noti"
+            android:id="@+id/switch_no_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
             android:thumb="@drawable/bg_thumb"
             app:layout_constraintTop_toTopOf="@id/tv_title_no_answer"
-            app:layout_constraintEnd_toEndOf="@id/constraint_limit_time_record"
+            app:layout_constraintEnd_toEndOf="@id/switch_missed_call"
 
             app:thumbTint="@color/white"
             app:track="@drawable/bg_track" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_unknown_caller"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/constraint_limit_time_record"
-            app:layout_constraintTop_toBottomOf="@id/tv_content_no_answer">
-            <TextView
-                android:id="@+id/tv_title_limit_time_recording"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:text="Recording Time Limit"
-                android:textColor="@color/core_purple"
-                android:fontFamily="@font/lato_bold"
-                android:layout_marginTop="@dimen/_10sdp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_unknown_caller"
+            android:checked="true"
 
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
 
-            <TextView
-                android:id="@+id/tv_content_limit_time_recording"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/lato_regular"
-                android:maxLines="2"
-                android:text="No limits"
-
-                android:textColor="@color/black"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_limit_time_recording" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_navigate_next_24"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="@id/tv_title_limit_time_recording"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_real_time_call_information"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/constraint_auto_delete"
-            app:layout_constraintTop_toBottomOf="@id/constraint_limit_time_record">
-            <TextView
-                android:id="@+id/tv_title_auto_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
-                android:text="Auto Delete Recordings"
-                android:textColor="@color/core_purple"
-                android:fontFamily="@font/lato_bold"
-                android:layout_marginTop="@dimen/_10sdp"
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title_real_time_call_information"
+            android:checked="true"
 
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
 
-            <TextView
-                android:id="@+id/tv_content_auto_delete"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/lato_regular"
-                android:maxLines="2"
-                android:text="Never"
-
-                android:textColor="@color/black"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title_auto_delete" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ic_navigate_next_24"
-                android:layout_marginTop="@dimen/_5sdp"
-                app:layout_constraintTop_toTopOf="@id/tv_title_auto_delete"
-                app:layout_constraintEnd_toEndOf="parent"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

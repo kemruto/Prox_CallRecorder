@@ -3,17 +3,13 @@ package com.sonnguyen.callrecorder.ui.fragment.Edit;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
@@ -24,28 +20,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 import com.sonnguyen.callrecorder.utils.app.MarkerView;
 import com.sonnguyen.callrecorder.utils.app.SamplePlayer;
 import com.sonnguyen.callrecorder.utils.app.WaveformView;
 import com.sonnguyen.callrecorder.utils.soundfile.SoundFile;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.RandomAccessFile;
 import java.io.StringWriter;
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 import static android.app.Activity.RESULT_CANCELED;
-import static android.app.Activity.RESULT_OK;
 
 public class EditFragment extends BaseFragment<EditViewModel>
         implements MarkerView.MarkerListener, WaveformView.WaveformListener {
@@ -914,7 +903,7 @@ public class EditFragment extends BaseFragment<EditViewModel>
                 RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(
-                startX,
+                startX+10,
                 mMarkerTopOffset,
                 -mStartMarker.getWidth(),
                 -mStartMarker.getHeight());

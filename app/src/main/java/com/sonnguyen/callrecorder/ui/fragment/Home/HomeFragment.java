@@ -2,28 +2,24 @@ package com.sonnguyen.callrecorder.ui.fragment.Home;
 
 import android.content.Context;
 import android.os.Build;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sonnguyen.callrecorder.MessageEvent;
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.app.MessageEvent;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 import com.sonnguyen.callrecorder.ui.fragment.Detail.DetailFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -45,6 +41,9 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
     private RecordDAO recordDAO;
     private Thread thread;
     private int autoDeleteDay;
+    private EditText edtSearch;
+
+    private SearchView searchView;
 
     @Override
     protected Class getClassModel() {
@@ -53,7 +52,6 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
 
     @Override
     protected void initEvents() {
-
     }
 
     @Override
@@ -69,6 +67,7 @@ public class HomeFragment extends BaseFragment<HomeViewModel> implements OnActio
         autoDeleteDay = MainActivity.getMainActivityInstance().getAutoDeleteDay();
         recyclerView = findViewById(R.id.list_item);
         listRecord = new ArrayList<>();
+
         showListRecord();
         backgroundAutoDeleteThread();
     }

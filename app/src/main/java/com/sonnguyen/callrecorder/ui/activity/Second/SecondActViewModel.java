@@ -1,4 +1,4 @@
-package com.sonnguyen.callrecorder.ui.activity;
+package com.sonnguyen.callrecorder.ui.activity.Second;
 
 import com.sonnguyen.callrecorder.base.BaseViewModel;
 

@@ -1,7 +1,5 @@
 package com.sonnguyen.callrecorder.ui.fragment.Caller;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -9,13 +7,10 @@ import android.widget.ImageView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.model.CallerModel;
-import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
-import com.sonnguyen.callrecorder.ui.activity.SecondActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +33,7 @@ public class CallerFragment extends BaseFragment<CallerViewModel> implements OnA
     @Override
     protected void initEvents() {
         imvTracking.setOnClickListener(v -> trackPhone());
+
         imvBin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

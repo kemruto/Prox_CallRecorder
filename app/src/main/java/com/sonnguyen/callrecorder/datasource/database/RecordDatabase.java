@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import com.sonnguyen.callrecorder.datasource.model.CallerModel;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
 
-@Database(entities = {RecordModel.class, CallerModel.class},version = 2)
+@Database(entities = {RecordModel.class, CallerModel.class},version = 3)
 public abstract class RecordDatabase extends RoomDatabase {
     private static RecordDatabase instance;
 

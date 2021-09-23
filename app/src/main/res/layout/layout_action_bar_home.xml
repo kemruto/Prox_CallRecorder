@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@drawable/shape"
-    android:backgroundTint="@color/core_purple"
-    android:orientation="horizontal">
+    android:backgroundTint="@color/core_purple">
 
         <ImageView
             android:id="@+id/imv_menu"
@@ -13,22 +12,11 @@
             android:layout_height="match_parent"
             android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_menu"
-            app:tint="@color/white" />
+            app:tint="@color/white"
 
-        <EditText
-            android:id="@+id/edt_search"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:ellipsize="end"
-            android:ems="10"
-            android:hint="Search here..."
-            android:background="@null"
-            android:fontFamily="@font/lato_regular"
-            android:textSize="@dimen/_12sdp"
-            android:textColorHint="@color/white"
-            android:padding="@dimen/_5sdp"
-            android:singleLine="true"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
 
         <ImageView
             android:id="@+id/imv_search"
@@ -36,7 +24,24 @@
             android:layout_height="match_parent"
             android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_search"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+
+            app:layout_constraintEnd_toStartOf="@id/imv_setting"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <!--        <androidx.appcompat.widget.SearchView-->
+<!--            android:id="@+id/edt_search"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:fontFamily="@font/lato_regular"-->
+<!--            android:textSize="@dimen/_12sdp"-->
+<!--            android:textColorHint="@color/white"-->
+<!--            android:padding="@dimen/_5sdp"-->
+<!--            android:singleLine="true"-->
+
+<!--            app:queryBackground="@null"-->
+<!--            />-->
 
         <ImageView
             android:id="@+id/imv_setting"
@@ -44,5 +49,8 @@
             android:layout_height="match_parent"
             android:padding="@dimen/_14sdp"
             android:src="@drawable/ic_setting"
-            app:tint="@color/white" />
-</LinearLayout>
+            app:tint="@color/white"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

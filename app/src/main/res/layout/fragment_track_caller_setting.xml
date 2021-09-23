@@ -18,22 +18,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/caller_setting_view"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_50sdp"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/_5sdp"
-        android:paddingRight="@dimen/_5sdp"
-        android:nestedScrollingEnabled="true"
-
+        android:layout_height="wrap_content"
         android:background="@drawable/bg_round_top_corner_16_white"
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imv_caller_setting_back">
 
-        <include layout="@layout/item_caller_setting" />
-        <include layout="@layout/item_open_caller_setting"/>
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/caller_setting_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_50sdp"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_5sdp"
+
+            android:paddingRight="@dimen/_5sdp">
+
+            <include layout="@layout/layout_caller_setting" />
+
+            <include layout="@layout/layout_extras_track_caller_setting" />
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

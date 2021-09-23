@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".ui.activity.MainActivity">
+    tools:context=".ui.activity.Main.MainActivity">
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -47,13 +47,6 @@
                 app:layout_constraintTop_toBottomOf="@id/tabLayout">
 
             </androidx.viewpager.widget.ViewPager>
-
-            <!--        <FrameLayout-->
-            <!--            android:id="@+id/frame_layout"-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="0dp"-->
-            <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--            app:layout_constraintTop_toBottomOf="@id/tabLayout" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 

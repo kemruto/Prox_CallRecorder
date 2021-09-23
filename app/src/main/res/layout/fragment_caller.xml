@@ -31,6 +31,7 @@
         android:hint="Enter a phone number here"
         android:paddingStart="@dimen/_10sdp"
         android:background="@drawable/bg_round_bottom_corner_7_white"
+        android:inputType="phone|number"
 
         app:layout_constraintTop_toBottomOf="@id/tv_caller_title"
         app:layout_constraintStart_toStartOf="@id/tv_caller_title"/>

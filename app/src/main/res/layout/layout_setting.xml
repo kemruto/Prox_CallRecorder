@@ -50,7 +50,7 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_call_recording"
+            app:layout_constraintEnd_toStartOf="@id/switch_missed_call"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_missed_call" />
 
@@ -80,7 +80,7 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_active_noti"
+            app:layout_constraintEnd_toStartOf="@id/switch_location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_completed_call" />
 
@@ -110,12 +110,12 @@
 
             android:textColor="@color/black"
 
-            app:layout_constraintEnd_toStartOf="@id/switch_after_call_noti"
+            app:layout_constraintEnd_toStartOf="@id/switch_no_answer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_title_no_answer" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_call_recording"
+            android:id="@+id/switch_missed_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -128,7 +128,7 @@
             app:track="@drawable/bg_track" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_active_noti"
+            android:id="@+id/switch_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -140,7 +140,7 @@
             app:track="@drawable/bg_track" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/switch_after_call_noti"
+            android:id="@+id/switch_no_answer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 

@@ -1,22 +1,18 @@
 package com.sonnguyen.callrecorder.ui.fragment.TrackCaller;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.BaseColumns;
 import android.provider.ContactsContract;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.model.CallerModel;
-import com.sonnguyen.callrecorder.ui.activity.SecondActivity;
+import com.sonnguyen.callrecorder.ui.activity.Second.SecondActivity;
 
 public class TrackCallerFragment extends BaseFragment<TrackCallerViewModel> {
     private static final String TAG = "aaa";
@@ -30,10 +26,11 @@ public class TrackCallerFragment extends BaseFragment<TrackCallerViewModel> {
         mViewModel.setContext(getContext());
         imvBack = findViewById(R.id.imv_back_caller_detail);
         imvCall = findViewById(R.id.imv_track_caller_call);
-        imvMessage = findViewById(R.id.imv_track_message);
-        imvSetting = findViewById(R.id.imv_track_setting);
-        tvContact = findViewById(R.id.tv_caller_contact);
-        tvPhoneNumber = findViewById(R.id.tv_caller_phone_number);
+        imvMessage = findViewById(R.id.imv_track_caller_message);
+        imvSetting = findViewById(R.id.imv_track_caller_setting);
+        tvContact = findViewById(R.id.tv_track_caller_contact);
+        tvPhoneNumber = findViewById(R.id.tv_track_caller_phone_number);
+        imvInfo = findViewById(R.id.imv_track_caller_info);
 
         Bundle bundle = getArguments();
         if (bundle!=null){
@@ -58,6 +55,11 @@ public class TrackCallerFragment extends BaseFragment<TrackCallerViewModel> {
             Intent messageIntent = new Intent(Intent.ACTION_VIEW);
             messageIntent.setData(Uri.parse("sms:"+phoneNumber));
             startActivity(messageIntent);
+        });
+
+        imvInfo.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_URI);
+            startActivity(intent);
         });
     }
 

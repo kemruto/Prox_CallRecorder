@@ -70,7 +70,7 @@
             app:layout_constraintWidth_percent="0.12" />
 
         <TextView
-            android:id="@+id/tv_caller_contact"
+            android:id="@+id/tv_track_caller_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -98,7 +98,7 @@
             android:textSize="@dimen/_12sdp"
 
             app:layout_constraintStart_toEndOf="@id/imv_detail_status_call"
-            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
+            app:layout_constraintTop_toBottomOf="@id/tv_track_caller_contact" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

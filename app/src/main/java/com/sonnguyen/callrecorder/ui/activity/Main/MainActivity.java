@@ -1,4 +1,4 @@
-package com.sonnguyen.callrecorder.ui.activity;
+package com.sonnguyen.callrecorder.ui.activity.Main;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -34,11 +34,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.sonnguyen.callrecorder.OnActionCallbackService;
+import com.sonnguyen.callrecorder.ui.activity.Search.SearchActivity;
+import com.sonnguyen.callrecorder.ui.activity.Second.SecondActivity;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackService;
 import com.sonnguyen.callrecorder.service.AutoRecordService;
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
-import com.sonnguyen.callrecorder.adapter.ViewPagerAdapter;
+import com.sonnguyen.callrecorder.ui.ViewPagerAdapter;
 import com.sonnguyen.callrecorder.base.BaseAct;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
@@ -323,7 +325,8 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
         imvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showPermissionDialog();
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -349,6 +352,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(KEYBUNDLE_HOMEFRAGMENT_DETAILFRAGMENT, recordModel);
                 detailFragment.setArguments(bundle);
+                drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 showFragment(R.id.frame_layout, detailFragment, true);
                 break;
             case DetailFragment.KEY_DETAIL_TO_ADD_NOTE:
@@ -375,7 +379,7 @@ public class MainActivity extends BaseAct<MainActViewModel> implements OnActionC
                 DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
                 LocalDateTime dateTime = LocalDateTime.now();
                 Log.i(TAG, "dateTime" + dtf.format(dateTime));
-                CallerModel callerModel = new CallerModel(contact, phoneNumber, "dtf.format(dateTime)","");
+                CallerModel callerModel = new CallerModel(contact, phoneNumber, dtf.format(dateTime),"");
                 recordDAO.insertCaller(callerModel);
 
                 Bundle bundle3 = new Bundle();

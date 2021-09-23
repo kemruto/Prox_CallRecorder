@@ -1,9 +1,11 @@
-package com.sonnguyen.callrecorder.ui.fragment.Home;
+package com.sonnguyen.callrecorder.ui.activity.Search;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -11,23 +13,26 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder> implements Filterable {
     public static final String KEY_RECORD_TO_DETAIL = "KEY_RECORD_TO_DETAIL";
     private List<RecordModel> mList;
+    private List<RecordModel> mListOld;
     private Context mContext;
     private RecordDAO recordDAO;
     private OnActionCallbackFragment callbackFragment;
 
-    public HomeAdapter(List<RecordModel> mList, Context mContext) {
+    public SearchAdapter(List<RecordModel> mList, Context mContext) {
         this.mList = mList;
+        this.mListOld = mList;
         this.mContext = mContext;
     }
 
@@ -36,9 +41,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
-    public void setCallback(OnActionCallbackFragment callbackFragment) {
-        this.callbackFragment = callbackFragment;
-    }
 
     @NonNull
     @Override
@@ -48,7 +50,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SearchAdapter.ViewHolder holder, int position) {
         RecordModel recordModel = mList.get(position);
         recordDAO = RecordDatabase.getInstance(mContext).recordDAO();
         String name = recordModel.getPhoneContact();
@@ -72,30 +74,45 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             holder.imvFavourite.setBackgroundResource(R.drawable.ic_purple_star);
         }
 
-        holder.imvFavourite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch(recordModel.getFavourite()){
-                    case 0:
-                        holder.imvFavourite.setBackgroundResource(R.drawable.ic_purple_star);
-                        recordModel.setFavourite(1);
-                        recordDAO.updateRecord(recordModel);
-                        break;
-                    case 1:
-                        holder.imvFavourite.setBackgroundResource(R.drawable.ic_gray_star);
-                        recordModel.setFavourite(0);
-                        recordDAO.updateRecord(recordModel);
-                        break;
-                }
-            }
-        });
-
-        holder.imvPlay.setOnClickListener(v -> callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,recordModel));
+//        holder.imvPlay.setOnClickListener(v -> callbackFragment.onCallback(KEY_RECORD_TO_DETAIL,recordModel));
     }
 
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    @Override
+    public Filter getFilter() {
+
+
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if (strSearch.isEmpty()){
+                    mList = mListOld;
+                }else{
+                     List<RecordModel> list = new ArrayList<>();
+                     for (RecordModel recordModel : mListOld){
+                         if (recordModel.getPhoneNumber().contains(strSearch)
+                                 || recordModel.getPhoneContact().toLowerCase().contains(strSearch.toLowerCase())){
+                             list.add(recordModel);
+                         }
+                     }
+                     mList = list;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mList;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                mList = (List<RecordModel>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

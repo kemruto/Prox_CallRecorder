@@ -19,12 +19,14 @@ import java.util.List;
 
 public class HomeViewModel extends BaseViewModel {
     private List<RecordModel> listRecord;
+    private List<RecordModel> listSearch;
     private RecordDAO recordDAO;
     private Context context;
     private RecordModel recordModel;
 
     public HomeViewModel(){
         listRecord = new ArrayList<>();
+        listSearch = new ArrayList<>();
     }
 
     public List<RecordModel> getListRecordModel(){
@@ -35,7 +37,10 @@ public class HomeViewModel extends BaseViewModel {
     public void insertRecord(RecordModel recordModel){ recordDAO.insertRecord(recordModel); }
     public void deleteRecord(RecordModel recordModel){ recordDAO.deleteRecord(recordModel); }
     public void updateRecord(RecordModel recordModel){ recordDAO.updateRecord(recordModel); }
-//    public List<RecordModel> searchRecord(String phone){return recordDAO.searchPhone(phone);}
+    public List<RecordModel> searchRecord(String phoneNumber){
+        listSearch = recordDAO.searchPhone(phoneNumber);
+        return listSearch;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void autoDelete(int compareDay){

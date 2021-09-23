@@ -7,11 +7,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 
 public class AddNoteFragment extends BaseFragment<AddNoteViewModel> {
     private OnActionCallbackFragment callbackFragment;

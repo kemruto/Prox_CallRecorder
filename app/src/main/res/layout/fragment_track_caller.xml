@@ -34,7 +34,7 @@
         app:layout_constraintWidth_percent="0.85">
 
         <TextView
-            android:id="@+id/tv_caller_contact"
+            android:id="@+id/tv_track_caller_contact"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -52,7 +52,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_caller_phone_number"
+            android:id="@+id/tv_track_caller_phone_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -62,11 +62,11 @@
 
             android:textSize="@dimen/_12sdp"
 
-            app:layout_constraintStart_toStartOf="@id/tv_caller_contact"
-            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
+            app:layout_constraintStart_toStartOf="@id/tv_track_caller_contact"
+            app:layout_constraintTop_toBottomOf="@id/tv_track_caller_contact" />
 
         <TextView
-            android:id="@+id/tv_date_last_call"
+            android:id="@+id/tv_track_caller_date_last_call"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -77,8 +77,8 @@
 
             android:textSize="@dimen/_12sdp"
 
-            app:layout_constraintStart_toEndOf="@id/tv_caller_phone_number"
-            app:layout_constraintTop_toBottomOf="@id/tv_caller_contact" />
+            app:layout_constraintStart_toEndOf="@id/tv_track_caller_phone_number"
+            app:layout_constraintTop_toBottomOf="@id/tv_track_caller_contact" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,10 +104,10 @@
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imv_track_info"/>
+            app:layout_constraintEnd_toStartOf="@id/imv_track_caller_info"/>
 
         <ImageView
-            android:id="@+id/imv_track_info"
+            android:id="@+id/imv_track_caller_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_track_info"
@@ -120,7 +120,7 @@
             app:layout_constraintStart_toEndOf="@id/imv_track_caller_call"/>
 
         <ImageView
-            android:id="@+id/imv_track_message"
+            android:id="@+id/imv_track_caller_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_message_track_caller"
@@ -131,15 +131,15 @@
             app:layout_constraintStart_toEndOf="@id/imv_track_caller_call"/>
 
         <ImageView
-            android:id="@+id/imv_track_setting"
+            android:id="@+id/imv_track_caller_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_setting_detail"
             android:translationZ="@dimen/_5sdp"
 
-            app:layout_constraintStart_toStartOf="@id/imv_track_info"
-            app:layout_constraintTop_toBottomOf="@id/imv_track_info"
-            app:layout_constraintStart_toEndOf="@id/imv_track_message"/>
+            app:layout_constraintStart_toStartOf="@id/imv_track_caller_info"
+            app:layout_constraintTop_toBottomOf="@id/imv_track_caller_info"
+            app:layout_constraintStart_toEndOf="@id/imv_track_caller_message"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

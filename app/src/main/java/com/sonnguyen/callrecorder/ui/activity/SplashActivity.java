@@ -1,6 +1,5 @@
 package com.sonnguyen.callrecorder.ui.activity;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -8,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.sonnguyen.callrecorder.R;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

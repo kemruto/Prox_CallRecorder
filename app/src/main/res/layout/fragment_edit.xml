@@ -51,19 +51,21 @@
         android:layout_width="wrap_content"
         android:layout_height="0px"
         android:layout_weight="1"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:paddingStart="@dimen/_20sdp">
 
         <com.sonnguyen.callrecorder.utils.app.WaveformView
             android:id="@+id/waveform"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:paddingStart="@dimen/_16sdp"/>
+            android:paddingStart="@dimen/_10sdp" />
 
         <com.sonnguyen.callrecorder.utils.app.MarkerView
             android:id="@+id/startmarker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Start marker"
+            android:layout_marginTop="@dimen/_5sdp"
             android:nextFocusDown="@+id/endmarker"
             android:src="@drawable/marker_left" />
 
@@ -88,7 +90,6 @@
         android:nextFocusDown="@+id/play" />
 
     <LinearLayout
-        style="@style/ToolbarBackground"
         android:layout_width="fill_parent"
         android:layout_height="62dip"
         android:gravity="center">
@@ -154,7 +155,7 @@
         <EditText
             android:id="@+id/starttext"
             android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_30sdp"
             android:gravity="center"
@@ -177,7 +178,7 @@
         <EditText
             android:id="@+id/endtext"
             android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_32sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:gravity="center"
             android:textColor="@color/core_purple"

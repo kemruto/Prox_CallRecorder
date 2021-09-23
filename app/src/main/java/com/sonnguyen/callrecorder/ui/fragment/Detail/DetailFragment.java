@@ -11,12 +11,12 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.sonnguyen.callrecorder.MessageEvent;
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.app.MessageEvent;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,22 +29,21 @@ import static java.lang.Long.getLong;
 public class DetailFragment extends BaseFragment<DetailViewModel> {
 
     public static final String KEY_DETAIL_TO_ADD_NOTE = "KEY_DETAIL_TO_ADD_NOTE";
-    public static final String KEY_DELETE_SUCCESS = "KEY_DELETE_SUCCESS";
     public static final String KEY_DETAIL_TO_TRIM = "KEY_DETAIL_TO_TRIM";
     private static final String TAG = "aaa";
     public static int PLAYING = 0;
     public static int PAUSE = 1;
     public static int STOP = 2;
-    private final MediaPlayer mediaPlayer = new MediaPlayer();
+    private MediaPlayer mediaPlayer;
     public Handler handler;
     private OnActionCallbackFragment callbackFragment;
     private ImageView imvBack, imvShare, imvBin, imvAddNote, imvTrim, imvPlay, imvStatusCall, imvTrimmed;
     private TextView tvNameContact, tvDate, tvStartTime, tvEndTime;
     private RecordModel recordModel;
     private int state;
-    private Thread thTask;
     private SeekBar seekBar;
     private Runnable runnable;
+    private Thread thread;
 
     @Override
     protected Class getClassModel() {
@@ -116,13 +115,14 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         imvAddNote = findViewById(R.id.imv_add_note);
         imvTrim = findViewById(R.id.imv_trimmed);
         imvPlay = findViewById(R.id.imv_play_detail);
-        tvNameContact = findViewById(R.id.tv_caller_contact);
+        tvNameContact = findViewById(R.id.tv_track_caller_contact);
         tvDate = findViewById(R.id.tv_detail_date);
         tvStartTime = findViewById(R.id.tv_start_time);
         tvEndTime = findViewById(R.id.tv_end_time);
         seekBar = findViewById(R.id.seekbar);
 
         getFirstValue();
+        mediaPlayer = new MediaPlayer();
         try {
             mediaPlayer.setDataSource(recordModel.getPath());
             mediaPlayer.prepare();
@@ -266,24 +266,14 @@ public class DetailFragment extends BaseFragment<DetailViewModel> {
         this.callbackFragment = callbackFragment;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i(TAG, "onDestroyDetail: ");
-        handler.removeCallbacks(runnable);
-    }
 
     @Override
     public void onStop() {
         super.onStop();
         Log.i(TAG, "onStopDetail: ");
-        handler.removeCallbacks(runnable);
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        handler.removeCallbacks(runnable);
-    }
 }
 

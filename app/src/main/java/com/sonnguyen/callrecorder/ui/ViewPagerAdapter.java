@@ -1,4 +1,4 @@
-package com.sonnguyen.callrecorder.adapter;
+package com.sonnguyen.callrecorder.ui;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

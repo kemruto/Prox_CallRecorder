@@ -32,8 +32,7 @@ import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.datasource.database.RecordDAO;
 import com.sonnguyen.callrecorder.datasource.database.RecordDatabase;
 import com.sonnguyen.callrecorder.datasource.model.RecordModel;
-import com.sonnguyen.callrecorder.ui.activity.MainActivity;
-import com.sonnguyen.callrecorder.ui.activity.SecondActivity;
+import com.sonnguyen.callrecorder.ui.activity.Main.MainActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,11 +51,11 @@ public class AutoRecordService extends Service {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     DateTimeFormatter createFormatDate = DateTimeFormatter.ISO_DATE;
     LocalDateTime localDateTime = LocalDateTime.now();
-    private MediaRecorder mediaRecorder;
+    private MediaRecorder mediaRecorder = null;
     private boolean isRecording;
     private RecordDAO recordDAO;
     private int status = 0;
-    private String recordFile,phoneContact="";
+    private String recordFile,phoneContact="Private number";
     private File parentDir;
     private String fileName;
 
@@ -103,13 +102,11 @@ public class AutoRecordService extends Service {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         phoneNumber = intent.getStringExtra("phoneNumber");
         autoRecord = MainActivity.getMainActivityInstance().getAutoRecord();
         duration = MainActivity.getMainActivityInstance().getDurationRecord();
-//        phoneContact = getContactNameByNumber(phoneNumber);
         if (intent.getAction() == "OFFHOOK") {
             createNotificationChannel();
             buildStartNotification();
@@ -175,7 +172,7 @@ public class AutoRecordService extends Service {
         return file.getPath();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     private void stopRecording() {
         if (isRecording) {
             if (!removeView && addView) {
@@ -186,11 +183,30 @@ public class AutoRecordService extends Service {
             mediaRecorder.reset();
             mediaRecorder.release();
             mediaRecorder = null;
+            RecordModel recordModel = null;
 
-            phoneContact = getContactNameByNumber(phoneNumber);
-            RecordModel recordModel = new RecordModel(phoneContact,phoneNumber
-                    , status, formatter.format(localDateTime), 0, 0, fileName, ""
-                    ,createFormatDate.format(localDateTime),"");
+            /**since android 9,phoneStateListener can't get phone-number
+             * if you want to get phone number from android 9 and up
+             * you need to sync CALL_LOG permission - which is restricted
+             * if android>9 RETURN phoneContact = Private Number
+             * else RETURN phone contact
+             * */
+            if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.O_MR1) {
+                Log.i(TAG, "phoneNumber in android >9: "+phoneNumber);
+                Log.i(TAG, "phoneContact in android >9: "+phoneContact);
+                recordModel = new RecordModel(phoneContact,phoneNumber
+                        , status, formatter.format(localDateTime), 0, 0, fileName, ""
+                        ,createFormatDate.format(localDateTime),"");
+            }else if(Build.VERSION.SDK_INT == Build.VERSION_CODES.O_MR1){
+                Log.i(TAG, "phoneNumber in android <9: "+phoneNumber);
+                phoneContact = getContactNameByNumber(phoneNumber);
+
+                Log.i(TAG, "phoneContact in android <9: "+phoneContact);
+                recordModel = new RecordModel(phoneContact,phoneNumber
+                        , status, formatter.format(localDateTime), 0, 0, fileName, ""
+                        ,createFormatDate.format(localDateTime),"");
+            }
+
             recordDAO.insertRecord(recordModel);
             isRecording = false;
             Log.i("aaa", "stop recording");
@@ -199,7 +215,7 @@ public class AutoRecordService extends Service {
     }
 
     public String getContactNameByNumber(String number) {
-        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(number));
+        Uri uri = Uri.withAppendedPath(ContactsContract.CommonDataKinds.Phone.CONTENT_FILTER_URI, Uri.encode(number));
         String name = "";
 
         ContentResolver contentResolver = this.getContentResolver();
@@ -303,6 +319,7 @@ public class AutoRecordService extends Service {
     public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroyService: ");
+        stopRecording();
     }
 }
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,8 +15,8 @@ import android.widget.TextView;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.sonnguyen.callrecorder.OnActionCallbackFragment;
-import com.sonnguyen.callrecorder.OnActionCallbackService;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackFragment;
+import com.sonnguyen.callrecorder.utils.callback.OnActionCallbackService;
 import com.sonnguyen.callrecorder.R;
 import com.sonnguyen.callrecorder.base.BaseFragment;
 
@@ -48,7 +47,7 @@ public class SettingFragment extends BaseFragment<SettingViewModel> {
         sharedPreferences = getContext().getSharedPreferences(KEY_SHARE_PREFERENCES, Context.MODE_PRIVATE);
 
         imvBack = findViewById(R.id.imv_setting_back);
-        switchCallRecord = findViewById(R.id.switch_call_recording);
+        switchCallRecord = findViewById(R.id.switch_missed_call);
         constraintAutoDelete = findViewById(R.id.constraint_auto_delete);
         constraintCallerSetting = findViewById(R.id.constraint_setting_for_caller);
         constraintLimitTime = findViewById(R.id.constraint_limit_time_record);

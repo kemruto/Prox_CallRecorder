@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/_12sdp">
+
+    <TextView
+        android:id="@+id/tv_extras"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@drawable/bg_round_top_corner_7_purple"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="Extras"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_round_bottom_corner_7_white"
+        android:padding="@dimen/_16sdp"
+        app:layout_constraintStart_toStartOf="@id/tv_extras"
+        app:layout_constraintTop_toBottomOf="@id/tv_extras">
+
+        <TextView
+            android:id="@+id/tv_show_call_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Show call info for contacts"
+            android:textColor="@color/core_purple"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/switch_show_call_info"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_show_call_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_show_call_info"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Your location"
+            android:textColor="@color/core_purple"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_show_call_info"
+            app:layout_constraintEnd_toStartOf="@id/switch_location"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_location"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+        <TextView
+            android:id="@+id/tv_show_reminders"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/lato_bold"
+            android:text="Show reminders in notification "
+            android:textColor="@color/core_purple"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_location"
+            app:layout_constraintEnd_toStartOf="@id/switch_show_reminders"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_show_reminders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:thumb="@drawable/bg_thumb"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/tv_show_reminders"
+
+            app:thumbTint="@color/white"
+            app:track="@drawable/bg_track" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
